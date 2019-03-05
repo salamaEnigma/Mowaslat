@@ -11,6 +11,9 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.paramgy.mowaslatdemo.data.Result;
+import com.paramgy.mowaslatdemo.view_model.AppViewModel;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -60,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_current_location.setAdapter(spinnerAdapter);
         spinner_destination.setAdapter(spinnerAdapter);
+
+
 
         //Set Spinner Listeners
         spinner_current_location.setOnItemSelectedListener(this);

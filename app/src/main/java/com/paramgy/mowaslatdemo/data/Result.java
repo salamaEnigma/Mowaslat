@@ -1,4 +1,4 @@
-package com.paramgy.mowaslatdemo;
+package com.paramgy.mowaslatdemo.data;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

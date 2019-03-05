@@ -1,4 +1,4 @@
-package com.paramgy.mowaslatdemo;
+package com.paramgy.mowaslatdemo.data;
 
 import java.util.List;
 
