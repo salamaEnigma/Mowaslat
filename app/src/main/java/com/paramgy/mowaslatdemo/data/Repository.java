@@ -11,6 +11,8 @@ import com.paramgy.mowaslatdemo.data.Result;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
+
 public class Repository {
     private AppDao appDAO;
 
@@ -18,15 +20,6 @@ public class Repository {
     public Repository(Application application) {
         AppDatabase database = AppDatabase.getInstance(application);
         appDAO = database.appDAO();
-    }
-
-
-    public void insertLocation(Location location) {
-        new InsertLocationAsyncTask(appDAO).execute(location);
-    }
-
-    public void insertResult(Result result) {
-        new InsertResultAsyncTask(appDAO).execute(result);
     }
 
     public void deleteAllLocation() {
@@ -39,13 +32,8 @@ public class Repository {
 
 
     // THIS NEED TO BE REVIEWED
-    public List<Location> getAllLocations() {
-        try {
-            return new GetAllLocationsAsyncTask(appDAO).execute().get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<Location>();
+    public LiveData<List<Location>> getAllLocations() {
+      return appDAO.getAllLocations();
     }
 
     public Result getResult(String current, String destination, int method) {
@@ -58,33 +46,6 @@ public class Repository {
     }
 
     //***************** Database Background Operations *******************//
-    private static class InsertLocationAsyncTask extends AsyncTask<Location, Void, Void> {
-        private AppDao appDao;
-
-        public InsertLocationAsyncTask(AppDao appDao) {
-            this.appDao = appDao;
-        }
-
-        @Override
-        protected Void doInBackground(Location... locations) {
-            appDao.insertLocation(locations[0]);
-            return null;
-        }
-    } // end InsertLocationAsyncTask
-
-    private static class InsertResultAsyncTask extends AsyncTask<Result, Void, Void> {
-        private AppDao appDao;
-
-        public InsertResultAsyncTask(AppDao appDao) {
-            this.appDao = appDao;
-        }
-
-        @Override
-        protected Void doInBackground(Result... results) {
-            appDao.insertResult(results[0]);
-            return null;
-        }
-    } // end InsertResultAsyncTask
 
     private static class DeleteAllLocationsAsyncTask extends AsyncTask<Void, Void, Void> {
         AppDao appDao;
@@ -115,19 +76,6 @@ public class Repository {
     }// end DeleteAllResultsAsyncTask
 
     // THIS NEED TO BE REVIEWED
-    private static class GetAllLocationsAsyncTask extends AsyncTask<Void, Void, List<Location>> {
-        private AppDao appDao;
-
-        public GetAllLocationsAsyncTask(AppDao appDao) {
-            this.appDao = appDao;
-        }
-
-        @Override
-        protected List<Location> doInBackground(Void... voids) {
-            return appDao.getAllLocations();
-        }
-    } // end GetAllLocationsAsyncTask
-
     private static class GetResultAsyncTask extends AsyncTask<Void, Void, Result> {
         private AppDao appDao;
         private String current;

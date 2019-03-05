@@ -11,13 +11,17 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.paramgy.mowaslatdemo.data.Location;
 import com.paramgy.mowaslatdemo.data.Result;
 import com.paramgy.mowaslatdemo.view_model.AppViewModel;
 
+import java.util.List;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener, Observer<List<Location>> {
     AppViewModel appViewModel;
 
     //Views
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RadioGroup radioGroup;
 
     //Fields
+    private  ArrayAdapter spinnerAdapter;
     private String currentLocation;
     private String destination;
     private int method;
@@ -44,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Get ViewModel instance
         appViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
+        //Add an observer object ( this ) to observe the LiveData object: locations list
+        appViewModel.getAllLocations().observe(this,this);
 
         //Initializing Views On Create
         spinner_current_location = findViewById(R.id.spinner_current_location);
@@ -57,14 +64,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Set the Car button to be checked by default
         car_button.setChecked(true);
 
-
         //Adapters For Spinners
-        ArrayAdapter spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, appViewModel.getAllLocations());
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner_current_location.setAdapter(spinnerAdapter);
-        spinner_destination.setAdapter(spinnerAdapter);
-
-
+            spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner_current_location.setAdapter(spinnerAdapter);
+            spinner_destination.setAdapter(spinnerAdapter);
 
         //Set Spinner Listeners
         spinner_current_location.setOnItemSelectedListener(this);
@@ -135,5 +139,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 method = 0;
                 break;
         }
+    }
+
+    @Override
+    public void onChanged(List<Location> locations) {
+        spinnerAdapter.addAll(locations);
+        spinnerAdapter.notifyDataSetChanged();
     }
 }

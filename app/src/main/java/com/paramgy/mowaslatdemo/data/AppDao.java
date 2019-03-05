@@ -2,6 +2,7 @@ package com.paramgy.mowaslatdemo.data;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -10,7 +11,7 @@ import androidx.room.Query;
 public interface AppDao {
 
     @Query("SELECT * FROM location_table")
-    List<Location> getAllLocations();
+    LiveData<List<Location>> getAllLocations();
 
     @Query("SELECT * FROM result_table WHERE currentLocation LIKE :current AND destination LIKE :destination AND transportation_method LIKE :method")
     Result getResult(String current, String destination, int method);

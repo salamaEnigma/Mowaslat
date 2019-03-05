@@ -22,21 +22,6 @@ public class Result {
         this.result = result;
     }
 
-    public void setCurrentLocation(String currentLocation) {
-        this.currentLocation = currentLocation;
-    }
-
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public void setTransportation_method(int transportation_method) {
-        this.transportation_method = transportation_method;
-    }
-
-    public void setResult(String result) {
-        this.result = result;
-    }
 
     public long getResult_id() {
         return result_id;
@@ -44,8 +29,6 @@ public class Result {
     public void setResult_id(long result_id) {
         this.result_id = result_id;
     }
-
-
 
     public String getCurrentLocation() {
         return currentLocation;
@@ -58,7 +41,6 @@ public class Result {
     public int getTransportation_method() {
         return transportation_method;
     }
-
 
     public String getResult() {
         return result;
