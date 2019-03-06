@@ -18,13 +18,9 @@ public class AppViewModel extends AndroidViewModel {
 
     public AppViewModel(@NonNull Application application) {
         super(application);
+        //THIS NEED TO BE INJECTED (DEPENDENCY INJECTION)
         repository = new Repository(application);
     }
-
-//    public void insertLocation(Location location){repository.insertLocation(location);}
-//    public void insertResult(Result result){repository.insertResult(result);}
-//    public void deleteAllLocations(){repository.deleteAllLocation();}
-//    public void deleteAllResults(){repository.deleteAllResults();}
 
     public Result getResult(String current ,String destination ,int method){return repository.getResult(current,destination,method);}
     public LiveData<List<Location>> getAllLocations(){return repository.getAllLocations();}

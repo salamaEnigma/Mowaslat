@@ -22,20 +22,19 @@ public class Repository {
         appDAO = database.appDAO();
     }
 
+    public LiveData<List<Location>> getAllLocations() {
+        return appDAO.getAllLocations();
+    }
     public void deleteAllLocation() {
         new DeleteAllLocationsAsyncTask(appDAO).execute();
     }
-
     public void deleteAllResults() {
         new DeleteAllResultsAsyncTask(appDAO).execute();
     }
 
 
     // THIS NEED TO BE REVIEWED
-    public LiveData<List<Location>> getAllLocations() {
-      return appDAO.getAllLocations();
-    }
-
+    // WE HAVE TO MAKE THE USER WAIT UNTIL THE RESULT IS FETCHED CORRECTLY (progress bar maybe with a timer)
     public Result getResult(String current, String destination, int method) {
         try {
             return new GetResultAsyncTask(appDAO, current, destination, method).execute().get();
