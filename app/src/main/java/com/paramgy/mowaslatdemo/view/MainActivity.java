@@ -1,4 +1,4 @@
-package com.paramgy.mowaslatdemo;
+package com.paramgy.mowaslatdemo.view;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.paramgy.mowaslatdemo.R;
 import com.paramgy.mowaslatdemo.data.Location;
 import com.paramgy.mowaslatdemo.data.Result;
 import com.paramgy.mowaslatdemo.view_model.AppViewModel;
