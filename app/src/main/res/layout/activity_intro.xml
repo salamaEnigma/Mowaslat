@@ -17,9 +17,9 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:alpha="0"
         android:layout_width="287dp"
         android:layout_height="189dp"
+        android:alpha="0"
         android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,12 +30,26 @@
         android:id="@+id/seekBar"
         android:layout_width="287dp"
         android:layout_height="wrap_content"
+        android:progressDrawable="@android:color/transparent"
         android:thumb="@drawable/car"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="287dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="48dp"
+        android:thumb="@drawable/car"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/seekBar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

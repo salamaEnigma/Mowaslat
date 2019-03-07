@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
 import com.paramgy.mowaslatdemo.R;
@@ -26,9 +27,11 @@ public class IntroActivity extends AppCompatActivity implements MvvmView {
         setContentView(R.layout.activity_intro);
 
         ImageView logo = findViewById(R.id.logo);
-
-        logo.animate().alpha(1f).setDuration(SPLASH_TIMEOUT);
+        logo.animate().alpha(1f).setDuration(2000);
         final SeekBar seekBar = findViewById(R.id.seekBar);
+        final ProgressBar progressBar = findViewById(R.id.progressBar);
+        seekBar.setMax(96);
+        seekBar.setThumbOffset(0);
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -38,6 +41,7 @@ public class IntroActivity extends AppCompatActivity implements MvvmView {
                     @Override
                     public void run() {
                         seekBar.setProgress(progress);
+                        progressBar.setProgress(progress);
                     }
                 });
                 progress += 1;
