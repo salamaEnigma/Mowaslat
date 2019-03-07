@@ -35,13 +35,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     RadioGroup radioGroup;
 
     //Fields
-    private  ArrayAdapter spinnerAdapter;
+    private ArrayAdapter spinnerAdapter;
     private String currentLocation;
     private String destination;
     private int method;
-    private static final String ERROR_MSG_1 = "عاوز تروح نفس المكان اللي انت فيه؟!";
-    private static final String ERROR_MSG_2 = "لسه مضفناش ( المكان / المواصلة ) لقاعدة البيانات";
-    private static final String ERROR_MSG_3 = "Please restart the app and try again";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Get ViewModel instance
         appViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
         //Add an observer object ( this ) to observe the LiveData object: locations list
-        appViewModel.getAllLocations().observe(this,this);
+        appViewModel.getAllLocations().observe(this, this);
 
         //Initializing Views On Create
         spinner_current_location = findViewById(R.id.spinner_current_location);
@@ -66,10 +63,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         car_button.setChecked(true);
 
         //Adapters For Spinners
-            spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
-            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinner_current_location.setAdapter(spinnerAdapter);
-            spinner_destination.setAdapter(spinnerAdapter);
+        spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_current_location.setAdapter(spinnerAdapter);
+        spinner_destination.setAdapter(spinnerAdapter);
 
         //Set Spinner Listeners
         spinner_current_location.setOnItemSelectedListener(this);
@@ -86,24 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Log.i("test", "button clicked!");
-        if(currentLocation ==null||destination ==null) {
-            Toast.makeText(this, ERROR_MSG_3, Toast.LENGTH_SHORT).show();
-        }
-        else if (currentLocation != null && destination != null) {
-            Result resultObjet = appViewModel.getResult(currentLocation, destination, method);
-            if (resultObjet != null) {
-                String result = resultObjet.getResult();
-                Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-                return;
-            } else {
-                if (currentLocation.equals(destination)) {
-                    Toast.makeText(this, ERROR_MSG_1, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Toast.makeText(this, ERROR_MSG_2, Toast.LENGTH_SHORT).show();
-                return;
-                }
-            }
+        appViewModel.getResult(currentLocation, destination, method);
     } // end On Click
 
     @Override
@@ -142,9 +122,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //For Live Data (Observer)
     @Override
     public void onChanged(List<Location> locations) {
         spinnerAdapter.addAll(locations);
         spinnerAdapter.notifyDataSetChanged();
     }
-}
+}// end MainActivity
