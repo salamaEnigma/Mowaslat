@@ -58,8 +58,5 @@ public class IntroActivity extends AppCompatActivity implements MvvmView {
             }
         }, SPLASH_TIMEOUT);
 
-
-    }
-
-
+    }// end on Create
 }
