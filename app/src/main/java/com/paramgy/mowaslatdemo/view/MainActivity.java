@@ -131,8 +131,6 @@ public class MainActivity extends AppCompatActivity implements MvvmView ,View.On
         spinnerAdapter.notifyDataSetChanged();
     }
 
-
-
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
