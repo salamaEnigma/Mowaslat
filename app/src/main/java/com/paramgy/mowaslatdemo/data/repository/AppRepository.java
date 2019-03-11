@@ -12,22 +12,22 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 
-public class ProjectRepository {
+public class AppRepository {
     private AppDao appDAO;
 
     /*
     Singleton pattern
      */
-    private static ProjectRepository projectRepository;
-    private ProjectRepository(Application application) {
+    private static AppRepository appRepository;
+    private AppRepository(Application application) {
         AppDatabase database = AppDatabase.getInstance(application);
         appDAO = database.appDAO();
     }
-    public static synchronized ProjectRepository getInstance(Application application){
-        if (projectRepository ==null){
-            projectRepository = new ProjectRepository(application);
+    public static synchronized AppRepository getInstance(Application application){
+        if (appRepository ==null){
+            appRepository = new AppRepository(application);
         }
-        return projectRepository;
+        return appRepository;
     }
 
 //***************** Operations ********************//
@@ -87,4 +87,4 @@ public class ProjectRepository {
         }
     } // end GetResultAsyncTask
 
-}// end ProjectRepository Class
+}// end AppRepository Class

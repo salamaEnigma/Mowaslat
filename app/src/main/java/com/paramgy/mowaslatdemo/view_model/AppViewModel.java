@@ -4,7 +4,7 @@ import android.app.Application;
 import android.widget.Toast;
 
 import com.paramgy.mowaslatdemo.data.model.Location;
-import com.paramgy.mowaslatdemo.data.repository.ProjectRepository;
+import com.paramgy.mowaslatdemo.data.repository.AppRepository;
 import com.paramgy.mowaslatdemo.data.model.Result;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import androidx.lifecycle.LiveData;
 
 public class AppViewModel extends AndroidViewModel {
 
-    private ProjectRepository projectRepository;
+    private AppRepository appRepository;
     private Application applicationContext;
 
     // Error MSGs Fields
@@ -27,7 +27,7 @@ public class AppViewModel extends AndroidViewModel {
         super(application);
         this.applicationContext = application;
         //THIS NEED TO BE INJECTED (DEPENDENCY INJECTION)
-        projectRepository = ProjectRepository.getInstance(application);
+        appRepository = AppRepository.getInstance(application);
 
     }
 
@@ -36,7 +36,7 @@ public class AppViewModel extends AndroidViewModel {
             Toast.makeText(applicationContext, ERROR_MSG_3, Toast.LENGTH_SHORT).show();
         }
         else {
-            Result resultObject =  projectRepository.getResult(currentLocation, destination, method);
+            Result resultObject =  appRepository.getResult(currentLocation, destination, method);
             if (resultObject != null) {
                 String result = resultObject.getResult();
                 Toast.makeText(applicationContext, result, Toast.LENGTH_LONG).show();
@@ -51,6 +51,6 @@ public class AppViewModel extends AndroidViewModel {
     } // end getResult
 
     public LiveData<List<Location>> getAllLocations() {
-        return projectRepository.getAllLocations();
+        return appRepository.getAllLocations();
     }
 }
