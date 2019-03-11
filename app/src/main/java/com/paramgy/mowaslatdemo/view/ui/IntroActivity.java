@@ -9,14 +9,13 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
 import com.paramgy.mowaslatdemo.R;
-import com.paramgy.mowaslatdemo.view.callback.MvvmView;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class IntroActivity extends AppCompatActivity implements MvvmView {
+public class IntroActivity extends AppCompatActivity {
     private static final int SPLASH_TIMEOUT = 3000;
     int progress;
     Handler mHandler = new Handler();
