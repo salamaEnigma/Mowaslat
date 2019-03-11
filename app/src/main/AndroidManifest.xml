@@ -9,7 +9,9 @@
         android:roundIcon="@drawable/car"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.ui.IntroActivity"
+        <activity android:name=".view.ui.ResultActivity"></activity>
+        <activity
+            android:name=".view.ui.IntroActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
