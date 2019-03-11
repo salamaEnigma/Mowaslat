@@ -1,4 +1,4 @@
-package com.paramgy.mowaslatdemo.view;
+package com.paramgy.mowaslatdemo.view.ui;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,8 +13,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.paramgy.mowaslatdemo.R;
-import com.paramgy.mowaslatdemo.data.Location;
-import com.paramgy.mowaslatdemo.data.Result;
+import com.paramgy.mowaslatdemo.data.model.Location;
+import com.paramgy.mowaslatdemo.view.callback.MvvmView;
 import com.paramgy.mowaslatdemo.view_model.AppViewModel;
 
 import java.util.List;
@@ -23,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-public class MainActivity extends AppCompatActivity implements MvvmView ,View.OnClickListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener, Observer<List<Location>> {
+public class MainActivity extends AppCompatActivity implements MvvmView,View.OnClickListener, AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener, Observer<List<Location>> {
     AppViewModel appViewModel;
 
     //Views
@@ -85,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements MvvmView ,View.On
     @Override
     public void onClick(View v) {
         Log.i("test", "button clicked!");
+
+        //WRONG MVX PRACTISE THE VIEW SHOULDN'T TELL THE VIEWMODEL WHAT TO DO
         appViewModel.getResult(currentLocation, destination, method);
     } // end On Click
 
@@ -127,6 +129,7 @@ public class MainActivity extends AppCompatActivity implements MvvmView ,View.On
     //For Live Data (Observer)
     @Override
     public void onChanged(List<Location> locations) {
+        //To fills the spinners with list of locations
         spinnerAdapter.addAll(locations);
         spinnerAdapter.notifyDataSetChanged();
     }

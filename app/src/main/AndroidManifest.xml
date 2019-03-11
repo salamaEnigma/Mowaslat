@@ -9,7 +9,7 @@
         android:roundIcon="@drawable/car"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.IntroActivity"
+        <activity android:name=".view.ui.IntroActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.ui.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

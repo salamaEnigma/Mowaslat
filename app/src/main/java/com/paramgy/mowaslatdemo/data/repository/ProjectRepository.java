@@ -1,27 +1,36 @@
-package com.paramgy.mowaslatdemo.data;
+package com.paramgy.mowaslatdemo.data.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
-import com.paramgy.mowaslatdemo.data.AppDao;
-import com.paramgy.mowaslatdemo.data.AppDatabase;
-import com.paramgy.mowaslatdemo.data.Location;
-import com.paramgy.mowaslatdemo.data.Result;
+import com.paramgy.mowaslatdemo.data.model.Location;
+import com.paramgy.mowaslatdemo.data.model.Result;
+import com.paramgy.mowaslatdemo.data.room.AppDao;
+import com.paramgy.mowaslatdemo.data.room.AppDatabase;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import androidx.lifecycle.LiveData;
 
-public class Repository {
+public class ProjectRepository {
     private AppDao appDAO;
 
-    public Repository(Application application) {
+    /*
+    Singleton pattern
+     */
+    private static ProjectRepository projectRepository;
+    private ProjectRepository(Application application) {
         AppDatabase database = AppDatabase.getInstance(application);
         appDAO = database.appDAO();
     }
+    public static synchronized ProjectRepository getInstance(Application application){
+        if (projectRepository ==null){
+            projectRepository = new ProjectRepository(application);
+        }
+        return projectRepository;
+    }
 
+//***************** Operations ********************//
     public LiveData<List<Location>> getAllLocations() {
         return appDAO.getAllLocations();
     }
@@ -78,4 +87,4 @@ public class Repository {
         }
     } // end GetResultAsyncTask
 
-}// end Repository Class
+}// end ProjectRepository Class

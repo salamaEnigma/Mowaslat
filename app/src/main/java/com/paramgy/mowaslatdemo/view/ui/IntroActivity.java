@@ -1,4 +1,4 @@
-package com.paramgy.mowaslatdemo.view;
+package com.paramgy.mowaslatdemo.view.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
 import com.paramgy.mowaslatdemo.R;
+import com.paramgy.mowaslatdemo.view.callback.MvvmView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,7 +31,7 @@ public class IntroActivity extends AppCompatActivity implements MvvmView {
         logo.animate().alpha(1f).setDuration(2000);
         final SeekBar seekBar = findViewById(R.id.seekBar);
         final ProgressBar progressBar = findViewById(R.id.progressBar);
-        seekBar.setMax(96);
+        seekBar.setMax(100);
         seekBar.setThumbOffset(0);
 
         timer.scheduleAtFixedRate(new TimerTask() {

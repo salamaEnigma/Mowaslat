@@ -1,4 +1,7 @@
-package com.paramgy.mowaslatdemo.data;
+package com.paramgy.mowaslatdemo.data.room;
+
+import com.paramgy.mowaslatdemo.data.model.Location;
+import com.paramgy.mowaslatdemo.data.model.Result;
 
 import java.util.List;
 
