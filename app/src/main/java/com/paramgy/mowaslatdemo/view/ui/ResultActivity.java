@@ -18,5 +18,5 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     //Has an oKButton method ;
-    //Has get user rating method  and push it to the database somehow .
+    //Has get user rating method  and push it to the database somehow ;
 }

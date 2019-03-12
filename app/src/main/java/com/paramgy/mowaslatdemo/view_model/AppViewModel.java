@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-public class AppViewModel extends AndroidViewModel {
+public class AppViewModel extends AndroidViewModel implements AppViewModelInterface {
 
     private AppRepository appRepository;
     private Application applicationContext;

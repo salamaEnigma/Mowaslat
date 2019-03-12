@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.paramgy.mowaslatdemo.R;
 import com.paramgy.mowaslatdemo.data.model.Location;
 import com.paramgy.mowaslatdemo.view_model.AppViewModel;
+import com.paramgy.mowaslatdemo.view_model.AppViewModelInterface;
 
 import java.util.List;
 
@@ -22,11 +23,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener,
-        AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener,
-        Observer<List<Location>> {
+public class MainActivity extends AppCompatActivity implements MainActivityInterface{
 
-    AppViewModel appViewModel;
+    AppViewModelInterface appViewModelInterface;
 
     //Views
     Spinner spinner_current_location;
@@ -50,9 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         //Get ViewModel instance
-        appViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
+        appViewModelInterface = ViewModelProviders.of(this).get(AppViewModel.class);
         //Add an observer object ( this ) to observe the LiveData object: locations list
-        appViewModel.getAllLocations().observe(this, this);
+        appViewModelInterface.getAllLocations().observe(this, this);
 
         //Initializing Views On Create
         spinner_current_location = findViewById(R.id.spinner_current_location);
@@ -84,12 +83,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }// end onCreate();
 
+
+    // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
     @Override
     public void onClick(View v) {
         Log.i("test", "button clicked!");
 
         //WRONG MVX PRACTISE THE VIEW SHOULDN'T TELL THE VIEWMODEL WHAT TO DO
-        appViewModel.getResult(currentLocation, destination, method);
+        appViewModelInterface.getResult(currentLocation, destination, method);
     } // end On Click
 
     @Override
