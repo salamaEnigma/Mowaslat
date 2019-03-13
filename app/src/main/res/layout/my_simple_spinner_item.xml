@@ -8,7 +8,7 @@
     android:singleLine="true"
     android:background="@color/mainBlue"
     android:textColor="@color/white"
-    android:textAlignment="textStart"
+    android:textAlignment="center"
     android:ellipsize="marquee"
 
     />
