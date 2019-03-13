@@ -20,7 +20,6 @@ import com.paramgy.mowaslatdemo.view_model.AppViewModelInterface;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 public class MainActivity extends AppCompatActivity implements MainActivityInterface{
@@ -66,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         car_button.setChecked(true);
 
         //Adapters For Spinners
-        spinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAdapter = new ArrayAdapter(this, R.layout.my_simple_spinner_item);
+        spinnerAdapter.setDropDownViewResource(R.layout.my_simple_spinner_item);
         spinner_current_location.setAdapter(spinnerAdapter);
         spinner_destination.setAdapter(spinnerAdapter);
 

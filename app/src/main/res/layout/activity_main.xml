@@ -6,32 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".view.ui.MainActivity">
 
-
     <ImageView
-        android:id="@+id/text_view_title"
-        android:layout_width="200dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="32dp"
-        android:fontFamily="serif-monospace"
-        android:src="@drawable/logo"
-        android:text="Mowaslat"
-        android:textColor="@color/colorPrimary"
+        android:id="@+id/logo_background"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@color/mainBlue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/logo_image"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <Button
         android:id="@+id/button_result"
         style="@android:style/Widget.Holo.Button"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorAccent"
         android:text="النتيجة!"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toTopOf="@+id/imageView2"
+        app:layout_constraintBottom_toTopOf="@+id/carLogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,18 +48,19 @@
         android:id="@+id/text_view_current"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="مكانك فين ؟"
+        android:layout_marginTop="64dp"
+        android:text="مكانك دلوقتي ؟"
+        android:textStyle="bold"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_title" />
+        app:layout_constraintTop_toBottomOf="@+id/logo_image" />
 
     <Spinner
         android:id="@+id/spinner_current_location"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,10 +72,11 @@
         android:id="@+id/text_view_destination"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="32dp"
         android:text="رايح فين ؟"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +84,7 @@
 
     <Spinner
         android:id="@+id/spinner_destination"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +98,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="اختار المواصلة"
+        android:text="المواصلة ؟"
+        android:textStyle="bold"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -152,14 +162,15 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/carLogo"
         android:layout_width="45dp"
         android:layout_height="35dp"
         android:layout_marginBottom="3dp"
+        android:src="@drawable/car"
         app:layout_constraintBottom_toTopOf="@+id/credit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        android:src="@drawable/car" />
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
