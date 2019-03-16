@@ -6,6 +6,7 @@ import com.paramgy.mowaslatdemo.data.model.Result;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -24,7 +25,6 @@ public interface AppDao {
 
     @Insert
     void insertResult(Result result);
-
 
     @Query("DELETE FROM location_table")
     void deleteAllLocations();

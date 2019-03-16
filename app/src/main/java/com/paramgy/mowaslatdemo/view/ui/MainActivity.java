@@ -1,5 +1,6 @@
 package com.paramgy.mowaslatdemo.view.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -22,7 +23,7 @@ import java.util.List;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
-public class MainActivity extends AppCompatActivity implements MainActivityInterface{
+public class MainActivity extends AppCompatActivity implements MainActivityInterface {
 
     AppViewModelInterface appViewModelInterface;
 
@@ -87,9 +88,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @Override
     public void onClick(View v) {
         Log.i("test", "button clicked!");
-
-        //WRONG MVX PRACTISE THE VIEW SHOULDN'T TELL THE VIEWMODEL WHAT TO DO
-        appViewModelInterface.getResult(currentLocation, destination, method);
+        Intent resultIntent = new Intent(this, ResultActivity.class);
+        resultIntent.putExtra("currentLocation", currentLocation);
+        resultIntent.putExtra("destination", destination);
+        resultIntent.putExtra("method", method);
+        startActivity(resultIntent);
     } // end On Click
 
     @Override
@@ -149,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }

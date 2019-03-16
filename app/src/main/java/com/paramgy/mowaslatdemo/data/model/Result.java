@@ -15,6 +15,17 @@ public class Result {
     private int transportation_method;
     private String result;
 
+    //Result Rating
+    private double rate ;
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
     public Result(String currentLocation, String destination, int transportation_method, String result) {
         this.currentLocation = currentLocation;
         this.destination = destination;
