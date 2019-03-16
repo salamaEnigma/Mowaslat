@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.paramgy.mowaslatdemo.R;
@@ -16,6 +17,7 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
 
     //Fields
     private ResultViewModelInterface resultViewModel;
+    TextView resultTextView;
     private String currentLocation;
     private String destination;
     private int method;
@@ -24,6 +26,9 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        //Initializing Views
+        resultTextView = findViewById(R.id.result_text_view);
 
         //Get Result View Model Instance
         resultViewModel = ViewModelProviders.of(this).get(ResultViewModel.class);
@@ -41,7 +46,7 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     @Override
     public void displayResult() {
         String result = resultViewModel.getResult(currentLocation,destination,method);
-        Toast.makeText(this,result,Toast.LENGTH_LONG).show();
+        resultTextView.setText(result);
     }
 
     @Override
