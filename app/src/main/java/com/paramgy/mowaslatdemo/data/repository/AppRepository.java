@@ -19,31 +19,33 @@ public class AppRepository {
     Singleton pattern
      */
     private static AppRepository appRepository;
+
     private AppRepository(Application application) {
         AppDatabase database = AppDatabase.getInstance(application);
         appDAO = database.appDAO();
     }
-    public static synchronized AppRepository getInstance(Application application){
-        if (appRepository ==null){
+
+    public static synchronized AppRepository getInstance(Application application) {
+        if (appRepository == null) {
             appRepository = new AppRepository(application);
         }
         return appRepository;
     }
 
-//***************** Operations ********************//
+    //***************** Operations ********************//
     public LiveData<List<Location>> getAllLocations() {
         return appDAO.getAllLocations();
     }
-    public void deleteAllLocation() {
 
+    public void deleteAllLocation() {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
                 appDAO.deleteAllLocations();
             }
         });
-
     }
+
     public void deleteAllResults() {
         AsyncTask.execute(new Runnable() {
             @Override
@@ -53,12 +55,20 @@ public class AppRepository {
         });
     }
 
+    public void updateResult(final Result result) {
+        AsyncTask.execute(new Runnable() {
+            @Override
+            public void run() {
+                appDAO.updateResult(result);
+            }
+        });
+    }
 
     // THIS NEED TO BE REVIEWED
     // WE HAVE TO MAKE THE USER WAIT UNTIL THE RESULT IS FETCHED CORRECTLY (progress bar maybe with a timer)
-    public Result getResult( String current,  String destination,  int method) {
+    public Result getResult(String current, String destination, int method) {
         try {
-            return new GetResultAsyncTask(appDAO,current,destination,method).execute().get();
+            return new GetResultAsyncTask(appDAO, current, destination, method).execute().get();
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 @Dao
 public interface AppDao {
@@ -17,7 +18,7 @@ public interface AppDao {
     @Query("SELECT * FROM location_table")
     LiveData<List<Location>> getAllLocations();
 
-    @Query("SELECT * FROM result_table WHERE currentLocation LIKE :current AND destination LIKE :destination AND transportation_method LIKE :method")
+    @Query("SELECT * FROM result_table WHERE currentLocation LIKE :current AND destination LIKE :destination AND transportationMethod LIKE :method")
     Result getResult(String current, String destination, int method);
 
     @Insert
@@ -25,6 +26,9 @@ public interface AppDao {
 
     @Insert
     void insertResult(Result result);
+
+    @Update
+    void updateResult(Result result);
 
     @Query("DELETE FROM location_table")
     void deleteAllLocations();

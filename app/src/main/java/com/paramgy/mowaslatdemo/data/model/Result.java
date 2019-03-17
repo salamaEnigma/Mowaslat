@@ -7,38 +7,31 @@ import androidx.room.PrimaryKey;
 public class Result {
 
     @PrimaryKey(autoGenerate = true)
-    private long result_id ;
+    private long resultId;
 
     private String currentLocation;
     private String destination;
     //0 For Car , 1 For Train , 2 For Tram/Metro
-    private int transportation_method;
+    private int transportationMethod;
     private String result;
 
-    //Result Rating
-    private double rate ;
-
-    public double getRate() {
-        return rate;
-    }
-
-    public void setRate(double rate) {
-        this.rate = rate;
-    }
-
-    public Result(String currentLocation, String destination, int transportation_method, String result) {
+    public Result(String currentLocation, String destination, int transportationMethod, String result) {
         this.currentLocation = currentLocation;
         this.destination = destination;
-        this.transportation_method = transportation_method;
+        this.transportationMethod = transportationMethod;
         this.result = result;
     }
 
-
-    public long getResult_id() {
-        return result_id;
+    public String getResult() {
+        return result;
     }
-    public void setResult_id(long result_id) {
-        this.result_id = result_id;
+
+    public long getResultId() {
+        return resultId;
+    }
+
+    public void setResultId(long resultId) {
+        this.resultId = resultId;
     }
 
     public String getCurrentLocation() {
@@ -49,11 +42,8 @@ public class Result {
         return destination;
     }
 
-    public int getTransportation_method() {
-        return transportation_method;
+    public int getTransportationMethod() {
+        return transportationMethod;
     }
 
-    public String getResult() {
-        return result;
-    }
 }

@@ -1,9 +1,9 @@
 package com.paramgy.mowaslatdemo.view.ui;
 
-import android.view.View;
+import android.widget.RatingBar;
 
-public interface ResultActivityInterface extends View.OnClickListener {
+public interface ResultActivityInterface extends RatingBar.OnRatingBarChangeListener {
 
     void displayResult();
-    void setUserRating();
+    void setUserRating(float userRating);
 }
