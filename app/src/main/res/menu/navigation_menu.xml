@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mail"
+            android:icon="@drawable/ic_mail"
+            android:title="اقتراحاتك" />
+
+        <item
+            android:id="@+id/contact"
+            android:icon="@drawable/ic_contact"
+            android:title="للتواصل" />
+    </group>
+
+    <item
+        android:id="@+id/share"
+        android:icon="@drawable/ic_share"
+        android:title="شاركني" />
+    <item
+        android:id="@+id/star"
+        android:icon="@drawable/ic_star"
+        android:title="قيم التطبيق" />
+
+
+</menu>

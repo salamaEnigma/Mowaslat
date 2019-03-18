@@ -1,7 +1,9 @@
 package com.paramgy.mowaslatdemo.view_model;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.paramgy.mowaslatdemo.data.model.Result;
 import com.paramgy.mowaslatdemo.data.repository.AppRepository;
@@ -11,6 +13,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 public class ResultViewModel extends AndroidViewModel implements ResultViewModelInterface {
 
+    private Context applicationContext;
 
     //Result Object
     private Result resultObject;
@@ -27,6 +30,7 @@ public class ResultViewModel extends AndroidViewModel implements ResultViewModel
 
     public ResultViewModel(@NonNull Application application) {
         super(application);
+        applicationContext = application.getApplicationContext();
         appRepository = AppRepository.getInstance(application);
     }
 
@@ -74,12 +78,14 @@ public class ResultViewModel extends AndroidViewModel implements ResultViewModel
     public void setUserRating(float rating) {
                 /*
                  Set Result Rating Somewhere Somehow XD !
-                 and make update only if the result exists and has a string text result
+                 and make update only if the result already exists and has a string text result
                  */
         if (resultObject != null && resultString != null) {
             Log.i("Result ID", resultID + "");
             Log.i("Result User Rating", rating + "");
             Log.i("Result Rate Update", "done!");
+            Toast.makeText(applicationContext,"Thank you for your rating",Toast.LENGTH_SHORT)
+                    .show();
         }
     } //end set user rating
 }
