@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.material.navigation.NavigationView;
 import com.paramgy.mowaslatdemo.R;
 import com.paramgy.mowaslatdemo.data.model.Location;
 import com.paramgy.mowaslatdemo.view_model.AppViewModel;
@@ -20,7 +22,10 @@ import com.paramgy.mowaslatdemo.view_model.AppViewModelInterface;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
 
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
@@ -42,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private String destination;
     private int method;
     boolean doubleBackToExitPressedOnce = false;
+
+    //Navigation Drawer Fields
+    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +89,47 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         //Set RadioGroup Listener
         radioGroup.setOnCheckedChangeListener(this);
 
+        //Navigation Drawer Settings
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
     }// end onCreate();
+
+
+    public void menuButtonClicked(View view) {
+        drawer.openDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+            return;
+        }
+
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
 
 
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
     @Override
     public void onClick(View v) {
-        Log.i("test", "button clicked!");
+        Log.i("test", "result button clicked!");
         Intent resultIntent = new Intent(this, ResultActivity.class);
         resultIntent.putExtra("currentLocation", currentLocation);
         resultIntent.putExtra("destination", destination);
@@ -139,21 +181,32 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         spinnerAdapter.notifyDataSetChanged();
     }
 
+
     @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+
+        switch (menuItem.getItemId()) {
+            case R.id.message:
+                //Do Something
+                startActivity(new Intent(this, MessageActivity.class));
+
+                break;
+            case R.id.contact:
+                //Do Something
+                startActivity(new Intent(this, ContactActivity.class));
+
+                break;
+            case R.id.share:
+                //Do Something
+                Toast.makeText(this, "Share Action", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.rate:
+                //Do Something
+                Toast.makeText(this, "Rate Action", Toast.LENGTH_SHORT).show();
+                break;
         }
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
 
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce = false;
-            }
-        }, 2000);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }// end MainActivity
