@@ -9,6 +9,4 @@
     android:background="@color/mainBlue"
     android:textColor="@color/white"
     android:textAlignment="center"
-    android:ellipsize="marquee"
-
-    />
+    android:ellipsize="marquee"/>

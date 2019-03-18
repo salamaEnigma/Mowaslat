@@ -84,7 +84,7 @@ public class ResultViewModel extends AndroidViewModel implements ResultViewModel
             Log.i("Result ID", resultID + "");
             Log.i("Result User Rating", rating + "");
             Log.i("Result Rate Update", "done!");
-            Toast.makeText(applicationContext,"Thank you for your rating",Toast.LENGTH_SHORT)
+            Toast.makeText(applicationContext,"Your feedback is appreciated :)",Toast.LENGTH_SHORT)
                     .show();
         }
     } //end set user rating
