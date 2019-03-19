@@ -1,6 +1,7 @@
 package com.paramgy.mowaslatdemo.view.ui;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -51,6 +52,10 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
 
     } // end on create
 
+    public void closeButtonClicked(View view) {
+        onBackPressed();
+    }
+
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
 
     @Override
@@ -72,4 +77,5 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
             setUserRating(rating);
         }
     }
+
 }
