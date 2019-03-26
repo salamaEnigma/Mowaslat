@@ -11,12 +11,14 @@ import com.paramgy.mowaslat.view_model.ResultViewModelInterface;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class ResultActivity extends AppCompatActivity implements ResultActivityInterface {
 
     //Views
-    TextView resultTextView;
-    RatingBar resultRatingBar;
+    @BindView(R.id.result_text_view) TextView resultTextView;
+    @BindView(R.id.ratingBar) RatingBar resultRatingBar;
 
     //ViewModel Reference
     private ResultViewModelInterface resultViewModel;
@@ -35,14 +37,12 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         resultViewModel = ViewModelProviders.of(this).get(ResultViewModel.class);
 
         //Initializing Views
-        resultTextView = findViewById(R.id.result_text_view);
-        resultRatingBar = findViewById(R.id.ratingBar);
+        ButterKnife.bind(this);
 
         //Get extras ( result details ) from the main activity
         currentLocation = getIntent().getStringExtra("currentLocation");
         destination = getIntent().getStringExtra("destination");
         method = getIntent().getIntExtra("method", 0);
-
 
         //Show Result On Create
         displayResult();

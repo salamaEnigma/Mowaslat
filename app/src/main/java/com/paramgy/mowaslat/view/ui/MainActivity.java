@@ -27,19 +27,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProviders;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements MainActivityInterface {
 
     AppViewModelInterface appViewModelInterface;
 
     //Views
-    Spinner spinner_current_location;
-    Spinner spinner_destination;
-    Button button_get_result;
-    RadioButton car_button;
-    RadioButton train_button;
-    RadioButton tram_button;
-    RadioGroup radioGroup;
+    @BindView(R.id.spinner_current_location) Spinner spinner_current_location;
+    @BindView(R.id.spinner_destination) Spinner spinner_destination;
+    @BindView(R.id.button_result) Button button_get_result;
+    @BindView(R.id.car) RadioButton car_button;
+    @BindView(R.id.radioGroup) RadioGroup radioGroup;
+    //Navigation Drawer Fields
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
 
     //Fields
     private ArrayAdapter spinnerAdapter;
@@ -48,8 +50,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private int method;
     boolean doubleBackToExitPressedOnce = false;
 
-    //Navigation Drawer Fields
-    DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +61,28 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         //Add an observer object ( this ) to observe the LiveData object: locations list
         appViewModelInterface.getAllLocations().observe(this, this);
 
-        //Initializing Views On Create
-        spinner_current_location = findViewById(R.id.spinner_current_location);
-        spinner_destination = findViewById(R.id.spinner_destination);
-        button_get_result = findViewById(R.id.button_result);
-        radioGroup = findViewById(R.id.radioGroup);
-        car_button = findViewById(R.id.car);
-        train_button = findViewById(R.id.train);
-        tram_button = findViewById(R.id.tram);
+        //Initializing Views with ButterKnife
+        ButterKnife.bind(this);
+
+        //Spinner Settings
+        setSpinner();
 
         //Set the Car button to be checked by default
         car_button.setChecked(true);
 
+        //Set Button Listener
+        button_get_result.setOnClickListener(this);
+
+        //Set RadioGroup Listener
+        radioGroup.setOnCheckedChangeListener(this);
+
+        //Navigation Drawer Settings
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+    }// end onCreate();
+
+    private void setSpinner() {
         //Adapters For Spinners
         spinnerAdapter = new ArrayAdapter(this, R.layout.my_simple_spinner_item);
         spinnerAdapter.setDropDownViewResource(R.layout.my_simple_spinner_item);
@@ -83,18 +93,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         spinner_current_location.setOnItemSelectedListener(this);
         spinner_destination.setOnItemSelectedListener(this);
 
-        //Set Button Listener
-        button_get_result.setOnClickListener(this);
-
-        //Set RadioGroup Listener
-        radioGroup.setOnCheckedChangeListener(this);
-
-        //Navigation Drawer Settings
-        drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-    }// end onCreate();
+    }// end setSpinners
 
 
     public void menuButtonClicked(View view) {

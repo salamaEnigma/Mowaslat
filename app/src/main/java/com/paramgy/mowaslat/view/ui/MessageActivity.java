@@ -10,11 +10,13 @@ import com.paramgy.mowaslat.R;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MessageActivity extends AppCompatActivity {
 
     //Views
-    EditText editText;
+    @BindView(R.id.editText) EditText editText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,7 +24,7 @@ public class MessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_message);
 
         //Initializing Views
-        editText = findViewById(R.id.editText);
+        ButterKnife.bind(this);
     }
 
     public void closeButtonClicked(View view) {
