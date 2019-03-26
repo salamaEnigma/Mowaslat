@@ -1,19 +1,8 @@
 package com.paramgy.mowaslat.view_model;
 
-import android.app.Application;
-import android.content.Context;
-import android.util.Log;
-
-import com.paramgy.mowaslat.data.firestore.TinyDB;
-import com.paramgy.mowaslat.data.model.Location;
 import com.paramgy.mowaslat.data.repository.AppRepository;
-import com.paramgy.mowaslat.data.repository.FirestoreCallback;
+import com.paramgy.mowaslat.data.firestore.FirestoreLocationsCallback;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
 public class AppViewModel extends ViewModel implements AppViewModelInterface {
@@ -27,8 +16,8 @@ public class AppViewModel extends ViewModel implements AppViewModelInterface {
     }
 
 
-    public void getAllLocations(FirestoreCallback callback) {
-        appRepository.getAllLocations(callback) ;
-    }// end GetAllLocations
+    public void getAllLocations(FirestoreLocationsCallback callback) {
+        appRepository.getAllLocations(callback);
+    }// end getAllLocations
 
 }

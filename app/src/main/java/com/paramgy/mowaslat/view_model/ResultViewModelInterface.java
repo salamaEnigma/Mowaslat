@@ -1,8 +1,10 @@
 package com.paramgy.mowaslat.view_model;
 
-public interface ResultViewModelInterface {
+import com.paramgy.mowaslat.data.firestore.FirestoreResultCallback;
 
-    String getResultString(String current, String destination, int method);
+public interface ResultViewModelInterface  {
+
+    void getResult(FirestoreResultCallback callback ,String current, String destination, int method);
 
     void setUserRating(float rating);
 }

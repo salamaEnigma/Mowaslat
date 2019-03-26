@@ -1,11 +1,15 @@
 package com.paramgy.mowaslat.view.ui;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.paramgy.mowaslat.R;
+import com.paramgy.mowaslat.data.model.Result;
 import com.paramgy.mowaslat.view_model.ResultViewModel;
 import com.paramgy.mowaslat.view_model.ResultViewModelInterface;
 
@@ -17,8 +21,12 @@ import butterknife.ButterKnife;
 public class ResultActivity extends AppCompatActivity implements ResultActivityInterface {
 
     //Views
-    @BindView(R.id.result_text_view) TextView resultTextView;
-    @BindView(R.id.ratingBar) RatingBar resultRatingBar;
+    @BindView(R.id.result_text_view)
+    TextView resultTextView;
+    @BindView(R.id.ratingBar)
+    RatingBar resultRatingBar;
+    @BindView(R.id.progress_bar)
+    ProgressBar porgressBar;
 
     //ViewModel Reference
     private ResultViewModelInterface resultViewModel;
@@ -27,6 +35,11 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     private String currentLocation;
     private String destination;
     private int method;
+    private static final String TAG = "ResultActivity";
+
+    // Error MSGs Fields
+    private static final String ERROR_MSG_SAME_LOCATION = "عاوز تروح نفس المكان اللي انت فيه؟!";
+    private static final String ERROR_MSG_NOT_FOUND = "لسه مضفناش ( المكان / المواصلة ) لقاعدة البيانات";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +58,7 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         method = getIntent().getIntExtra("method", 0);
 
         //Show Result On Create
-        displayResult();
+        checkResult();
 
         //set rating bar listener
         resultRatingBar.setOnRatingBarChangeListener(this);
@@ -56,13 +69,27 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         onBackPressed();
     }
 
+    public void checkResult() {
+        if (currentLocation.equals(destination)) {
+            resultTextView.setText(ERROR_MSG_SAME_LOCATION);
+            resultTextView.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        porgressBar.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                porgressBar.setVisibility(View.INVISIBLE);
+                resultTextView.setVisibility(View.VISIBLE);
+
+            }
+        }, 1000);
+        resultViewModel.getResult(this, currentLocation, destination, method);
+
+    }
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
 
-    @Override
-    public void displayResult() {
-        String result = resultViewModel.getResultString(currentLocation, destination, method);
-        resultTextView.setText(result);
-    }
 
     @Override
     public void setUserRating(float userRating) {
@@ -77,5 +104,17 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
             setUserRating(rating);
         }
     }
+
+    @Override
+    public void resultCallback(Result result) {
+        if (result != null) {
+            String text = result.getText();
+            // Display The Result ...............
+            resultTextView.setText(text);
+            return;
+        } else {
+            resultTextView.setText(ERROR_MSG_NOT_FOUND);
+        }
+    }// end resultCallback
 
 }

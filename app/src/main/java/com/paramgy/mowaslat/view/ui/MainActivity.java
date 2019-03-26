@@ -18,7 +18,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.paramgy.mowaslat.R;
 import com.paramgy.mowaslat.data.firestore.TinyDB;
 import com.paramgy.mowaslat.data.model.Location;
-import com.paramgy.mowaslat.data.repository.FirestoreCallback;
 import com.paramgy.mowaslat.view_model.AppViewModel;
 import com.paramgy.mowaslat.view_model.AppViewModelInterface;
 
@@ -219,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     @Override
-    public void dataCallback(List<Location> locations) {
+    public void locationsListCallback(List<Location> locations) {
         ArrayList<String> locationsList = new ArrayList<>();
         for(Location location : locations){
             locationsList.add(location.getName());

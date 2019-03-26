@@ -2,8 +2,9 @@ package com.paramgy.mowaslat.view.ui;
 
 import android.widget.RatingBar;
 
-public interface ResultActivityInterface extends RatingBar.OnRatingBarChangeListener {
+import com.paramgy.mowaslat.data.firestore.FirestoreResultCallback;
 
-    void displayResult();
+public interface ResultActivityInterface extends RatingBar.OnRatingBarChangeListener , FirestoreResultCallback {
+
     void setUserRating(float userRating);
 }

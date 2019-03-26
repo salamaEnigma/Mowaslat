@@ -2,6 +2,7 @@ package com.paramgy.mowaslat.view_model;
 
 import android.util.Log;
 
+import com.paramgy.mowaslat.data.firestore.FirestoreResultCallback;
 import com.paramgy.mowaslat.data.model.Result;
 import com.paramgy.mowaslat.data.repository.AppRepository;
 
@@ -15,10 +16,7 @@ public class ResultViewModel extends ViewModel implements ResultViewModelInterfa
     private String resultID;
     private String resultString;
 
-    // Error MSGs Fields
-    private static final String ERROR_MSG_SAME_LOCATION = "عاوز تروح نفس المكان اللي انت فيه؟!";
-    private static final String ERROR_MSG_NOT_FOUND = "لسه مضفناش ( المكان / المواصلة ) لقاعدة البيانات";
-    private static final String ERROR_MSG_DATA_SOURCE = "Please restart the app and try again";
+
 
 
     private AppRepository appRepository;
@@ -28,38 +26,11 @@ public class ResultViewModel extends ViewModel implements ResultViewModelInterfa
         appRepository = AppRepository.getInstance();
     }
 
-    private Result getResultObject(String current, String destination, int method) {
-        Result result = appRepository.getResult(current, destination, method);
-        if (result != null) {
-            resultID = result.getDocumentID();
-        }
-        return result;
-    }
-
-
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
 
     @Override
-    public String getResultString(String current, String destination, int method) {
-        if (current == null || destination == null) {
-            //Return ErrorMsg Data Source Problem in fetching result
-            return ERROR_MSG_DATA_SOURCE;
-        } else {
-            //Fetch The Result
-            resultObject = getResultObject(current, destination, method);
-            if (resultObject != null) {
-                resultString = resultObject.getText();
-                // Return The Result ...............
-                return resultString;
-            } else {
-                if (current.equals(destination)) {
-                    //Return Same location Error
-                    return ERROR_MSG_SAME_LOCATION;
-                }
-                //Return Data not added yet error
-                return ERROR_MSG_NOT_FOUND;
-            }
-        }
+    public void getResult(FirestoreResultCallback callback, String current, String destination, int method) {
+        appRepository.getResult(callback,current,destination,method);
     } //end getResultString
 
     /*
@@ -80,5 +51,7 @@ public class ResultViewModel extends ViewModel implements ResultViewModelInterfa
             Log.i("Result Rate Update", "done!");
         }
     } //end set user rating
+
+
 }
 

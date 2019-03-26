@@ -1,16 +1,9 @@
 package com.paramgy.mowaslat.data.repository;
 
-import android.os.AsyncTask;
-import android.os.Handler;
-import android.util.Log;
-
 import com.paramgy.mowaslat.data.firestore.FireStoreRepository;
-import com.paramgy.mowaslat.data.model.Location;
+import com.paramgy.mowaslat.data.firestore.FirestoreLocationsCallback;
+import com.paramgy.mowaslat.data.firestore.FirestoreResultCallback;
 import com.paramgy.mowaslat.data.model.Result;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class AppRepository {
     FireStoreRepository fireStoreRepository;
@@ -32,13 +25,12 @@ public class AppRepository {
     }
 
     //***************** Operations ********************//
-    public void getAllLocations(FirestoreCallback firestoreCallback) {
-        fireStoreRepository.getLocations(firestoreCallback);
+    public void getAllLocations(FirestoreLocationsCallback firestoreLocationsCallback) {
+        fireStoreRepository.getLocations(firestoreLocationsCallback);
     }
 
-
-    public Result getResult(String current, String destination, int method) {
-        return fireStoreRepository.getResult(current, destination, method);
+    public void getResult(FirestoreResultCallback callback ,String current, String destination, int method) {
+         fireStoreRepository.getResult(callback,current, destination, method);
     }
 
 
