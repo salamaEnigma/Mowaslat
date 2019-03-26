@@ -1,4 +1,4 @@
-package com.paramgy.mowaslatdemo.data.model;
+package com.paramgy.mowaslat.data.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

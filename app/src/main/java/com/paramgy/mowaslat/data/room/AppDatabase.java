@@ -1,10 +1,10 @@
-package com.paramgy.mowaslatdemo.data.room;
+package com.paramgy.mowaslat.data.room;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.paramgy.mowaslatdemo.data.model.Location;
-import com.paramgy.mowaslatdemo.data.model.Result;
+import com.paramgy.mowaslat.data.model.Location;
+import com.paramgy.mowaslat.data.model.Result;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;

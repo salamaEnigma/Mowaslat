@@ -1,13 +1,13 @@
-package com.paramgy.mowaslatdemo.view.ui;
+package com.paramgy.mowaslat.view.ui;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.paramgy.mowaslatdemo.R;
-import com.paramgy.mowaslatdemo.view_model.ResultViewModel;
-import com.paramgy.mowaslatdemo.view_model.ResultViewModelInterface;
+import com.paramgy.mowaslat.R;
+import com.paramgy.mowaslat.view_model.ResultViewModel;
+import com.paramgy.mowaslat.view_model.ResultViewModelInterface;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;

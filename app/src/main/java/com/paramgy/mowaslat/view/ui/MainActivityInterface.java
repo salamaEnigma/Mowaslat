@@ -1,11 +1,11 @@
-package com.paramgy.mowaslatdemo.view.ui;
+package com.paramgy.mowaslat.view.ui;
 
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.RadioGroup;
 
 import com.google.android.material.navigation.NavigationView;
-import com.paramgy.mowaslatdemo.data.model.Location;
+import com.paramgy.mowaslat.data.model.Location;
 
 import java.util.List;
 

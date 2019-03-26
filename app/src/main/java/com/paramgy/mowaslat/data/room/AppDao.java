@@ -1,12 +1,11 @@
-package com.paramgy.mowaslatdemo.data.room;
+package com.paramgy.mowaslat.data.room;
 
-import com.paramgy.mowaslatdemo.data.model.Location;
-import com.paramgy.mowaslatdemo.data.model.Result;
+import com.paramgy.mowaslat.data.model.Location;
+import com.paramgy.mowaslat.data.model.Result;
 
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;

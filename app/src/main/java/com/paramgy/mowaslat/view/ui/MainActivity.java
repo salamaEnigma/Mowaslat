@@ -1,4 +1,4 @@
-package com.paramgy.mowaslatdemo.view.ui;
+package com.paramgy.mowaslat.view.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +15,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
-import com.paramgy.mowaslatdemo.R;
-import com.paramgy.mowaslatdemo.data.model.Location;
-import com.paramgy.mowaslatdemo.view_model.AppViewModel;
-import com.paramgy.mowaslatdemo.view_model.AppViewModelInterface;
+import com.paramgy.mowaslat.R;
+import com.paramgy.mowaslat.data.model.Location;
+import com.paramgy.mowaslat.view_model.AppViewModel;
+import com.paramgy.mowaslat.view_model.AppViewModelInterface;
 
 import java.util.List;
 

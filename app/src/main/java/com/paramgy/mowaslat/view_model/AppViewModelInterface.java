@@ -1,6 +1,6 @@
-package com.paramgy.mowaslatdemo.view_model;
+package com.paramgy.mowaslat.view_model;
 
-import com.paramgy.mowaslatdemo.data.model.Location;
+import com.paramgy.mowaslat.data.model.Location;
 import java.util.List;
 import androidx.lifecycle.LiveData;
 

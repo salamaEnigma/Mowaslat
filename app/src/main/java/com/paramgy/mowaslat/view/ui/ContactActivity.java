@@ -1,9 +1,9 @@
-package com.paramgy.mowaslatdemo.view.ui;
+package com.paramgy.mowaslat.view.ui;
 
 import android.os.Bundle;
 import android.view.View;
 
-import com.paramgy.mowaslatdemo.R;
+import com.paramgy.mowaslat.R;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;

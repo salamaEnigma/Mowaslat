@@ -1,12 +1,12 @@
-package com.paramgy.mowaslatdemo.data.repository;
+package com.paramgy.mowaslat.data.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
-import com.paramgy.mowaslatdemo.data.model.Location;
-import com.paramgy.mowaslatdemo.data.model.Result;
-import com.paramgy.mowaslatdemo.data.room.AppDao;
-import com.paramgy.mowaslatdemo.data.room.AppDatabase;
+import com.paramgy.mowaslat.data.model.Location;
+import com.paramgy.mowaslat.data.model.Result;
+import com.paramgy.mowaslat.data.room.AppDao;
+import com.paramgy.mowaslat.data.room.AppDatabase;
 
 import java.util.List;
 

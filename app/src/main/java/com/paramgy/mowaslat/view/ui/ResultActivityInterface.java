@@ -1,4 +1,4 @@
-package com.paramgy.mowaslatdemo.view.ui;
+package com.paramgy.mowaslat.view.ui;
 
 import android.widget.RatingBar;
 

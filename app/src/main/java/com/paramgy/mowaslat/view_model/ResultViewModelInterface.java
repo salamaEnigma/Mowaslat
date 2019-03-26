@@ -1,6 +1,4 @@
-package com.paramgy.mowaslatdemo.view_model;
-
-import com.paramgy.mowaslatdemo.data.model.Result;
+package com.paramgy.mowaslat.view_model;
 
 public interface ResultViewModelInterface {
 

@@ -1,4 +1,4 @@
-package com.paramgy.mowaslatdemo.view.ui;
+package com.paramgy.mowaslat.view.ui;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.paramgy.mowaslatdemo.R;
+import com.paramgy.mowaslat.R;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;

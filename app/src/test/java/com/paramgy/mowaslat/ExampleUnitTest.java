@@ -1,4 +1,4 @@
-package com.paramgy.mowaslatdemo;
+package com.paramgy.mowaslat;
 
 import org.junit.Test;
 

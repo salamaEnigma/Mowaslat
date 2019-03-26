@@ -1,11 +1,9 @@
-package com.paramgy.mowaslatdemo.view_model;
+package com.paramgy.mowaslat.view_model;
 
 import android.app.Application;
-import android.widget.Toast;
 
-import com.paramgy.mowaslatdemo.data.model.Location;
-import com.paramgy.mowaslatdemo.data.repository.AppRepository;
-import com.paramgy.mowaslatdemo.data.model.Result;
+import com.paramgy.mowaslat.data.model.Location;
+import com.paramgy.mowaslat.data.repository.AppRepository;
 
 import java.util.List;
 
