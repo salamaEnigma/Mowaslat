@@ -40,7 +40,7 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
 
     private static final String TAG = "ResultActivity";
     // Error MSGs Fields
-    private static final String ERROR_MSG_SAME_LOCATION = "عاوز تروح نفس المكان اللي انت فيه؟!";
+    private static final String ERROR_MSG_SAME_LOCATION = "عاوز تروح نفس المكان اللي إنت فيه؟!";
     private static final String ERROR_MSG_NOT_FOUND = "لسه مضفناش ( المكان / المواصلة ) لقاعدة البيانات";
 
     @Override
@@ -84,7 +84,7 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
                 progressBar.setVisibility(View.INVISIBLE);
                 resultTextView.setVisibility(View.VISIBLE);
             }
-        }, 1000);
+        }, 1500);
         resultViewModel.getResult(this, currentLocation, destination, method);
     }// end checkResult
 
@@ -111,9 +111,7 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         if (result != null) {
             this.result = result;
             String text = result.getText();
-            // Display The Result ...............
             resultTextView.setText(text);
-            return;
         } else {
             resultTextView.setText(ERROR_MSG_NOT_FOUND);
         }

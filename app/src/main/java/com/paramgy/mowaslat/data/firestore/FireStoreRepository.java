@@ -2,8 +2,10 @@ package com.paramgy.mowaslat.data.firestore;
 
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -39,17 +41,24 @@ public class FireStoreRepository {
         resultsCollectionRef.whereEqualTo(KEY_RESULT_CURRENT, current)
                 .whereEqualTo(KEY_RESULT_DESTINATION, destination)
                 .whereEqualTo(KEY_RESULT_METHOD, method)
-                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
-                    Result result = doc.toObject(Result.class);
-                    String documentID = doc.getId();
-                    result.setDocumentID(documentID);
-                    callback.resultCallback(result);
-                    Log.d(TAG, "onSuccess: " + result.getText());
+                Log.d(TAG, "onSuccess: Query");
+                Log.d(TAG, "onSuccess: is empty? "+queryDocumentSnapshots.isEmpty());
+                if(!queryDocumentSnapshots.isEmpty()) {
+                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+
+                        Result result = doc.toObject(Result.class);
+                        String documentID = doc.getId();
+                        result.setDocumentID(documentID);
+                        callback.resultCallback(result);
+                    }
+                }else {
+                    Log.d(TAG, "onSuccess: Doc Doesn't Exist");
+                    callback.resultCallback(null);
                 }
-                return;
             }// end onSuccess
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -57,7 +66,6 @@ public class FireStoreRepository {
                 Log.d(TAG, e.getMessage());
             }
         });
-        callback.resultCallback(null);
     } //end getResult
 
     public void getLocations(FirestoreLocationsCallback callback) {
