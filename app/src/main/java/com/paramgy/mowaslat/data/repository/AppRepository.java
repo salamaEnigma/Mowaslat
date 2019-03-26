@@ -1,100 +1,45 @@
 package com.paramgy.mowaslat.data.repository;
 
-import android.app.Application;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.util.Log;
 
+import com.paramgy.mowaslat.data.firestore.FireStoreRepository;
 import com.paramgy.mowaslat.data.model.Location;
 import com.paramgy.mowaslat.data.model.Result;
-import com.paramgy.mowaslat.data.room.AppDao;
-import com.paramgy.mowaslat.data.room.AppDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import androidx.lifecycle.LiveData;
+import java.util.concurrent.ExecutionException;
 
 public class AppRepository {
-    private AppDao appDAO;
-
+    FireStoreRepository fireStoreRepository;
+    public static final String TAG = "AppRepository";
     /*
     Singleton pattern
      */
     private static AppRepository appRepository;
 
-    private AppRepository(Application application) {
-        AppDatabase database = AppDatabase.getInstance(application);
-        appDAO = database.appDAO();
+    private AppRepository() {
+        fireStoreRepository = new FireStoreRepository();
     }
 
-    public static synchronized AppRepository getInstance(Application application) {
+    public static synchronized AppRepository getInstance() {
         if (appRepository == null) {
-            appRepository = new AppRepository(application);
+            appRepository = new AppRepository();
         }
         return appRepository;
     }
 
     //***************** Operations ********************//
-    public LiveData<List<Location>> getAllLocations() {
-        return appDAO.getAllLocations();
+    public void getAllLocations(FirestoreCallback firestoreCallback) {
+        fireStoreRepository.getLocations(firestoreCallback);
     }
 
-    public void deleteAllLocation() {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                appDAO.deleteAllLocations();
-            }
-        });
-    }
 
-    public void deleteAllResults() {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                appDAO.deleteAllResults();
-            }
-        });
-    }
-
-    public void updateResult(final Result result) {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                appDAO.updateResult(result);
-            }
-        });
-    }
-
-    // THIS NEED TO BE REVIEWED
-    // WE HAVE TO MAKE THE USER WAIT UNTIL THE RESULT IS FETCHED CORRECTLY (progress bar maybe with a timer)
     public Result getResult(String current, String destination, int method) {
-        try {
-            return new GetResultAsyncTask(appDAO, current, destination, method).execute().get();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return fireStoreRepository.getResult(current, destination, method);
     }
 
-    //***************** Database Background Operations *******************//
-
-    // THIS NEED TO BE REVIEWED
-    private static class GetResultAsyncTask extends AsyncTask<Void, Void, Result> {
-        private AppDao appDao;
-        private String current;
-        private String destination;
-        private int method;
-
-        private GetResultAsyncTask(AppDao appDao, String current, String destination, int method) {
-            this.appDao = appDao;
-            this.current = current;
-            this.destination = destination;
-            this.method = method;
-        }
-
-        @Override
-        protected Result doInBackground(Void... voids) {
-            return appDao.getResult(current, destination, method);
-        }
-    } // end GetResultAsyncTask
 
 }// end AppRepository Class

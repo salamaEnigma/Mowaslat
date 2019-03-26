@@ -1,48 +1,47 @@
 package com.paramgy.mowaslat.data.model;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.GeoPoint;
 
-@Entity(tableName = "location_table")
 public class Location {
 
-    @PrimaryKey(autoGenerate = true)
-    private int location_id;
+    //Fields
+    private String name;
+    private GeoPoint coordinates;
+    private String documentId;
 
-    private String name ;
-    private double latitude;
-    private double longitude;
+    //Constructors
+    public Location() {
+        //needed for the Firestore
+    }
 
-    public Location(String name, double latitude, double longitude) {
+    public Location(String name, GeoPoint coordinates) {
         this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.coordinates = coordinates;
     }
 
-    public int getLocation_id() {
-        return location_id;
-    }
-
-    public void setLocation_id(int location_id) {
-        this.location_id = location_id;
-    }
-
+    //Getters & Setters
     public String getName() {
         return name;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public GeoPoint getCoordinates() {
+        return coordinates;
     }
 
-    public double getLongitude() {
-        return longitude;
+    @Exclude
+    public String getDocumentId() {
+        return documentId;
     }
 
-    @NonNull
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
+
+    //toString
     @Override
     public String toString() {
         return name;
     }
 }
+

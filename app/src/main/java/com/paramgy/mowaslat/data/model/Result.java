@@ -1,38 +1,43 @@
 package com.paramgy.mowaslat.data.model;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
+import com.google.firebase.firestore.Exclude;
 
-@Entity(tableName = "result_table")
 public class Result {
 
-    @PrimaryKey(autoGenerate = true)
-    private long resultId;
+
+
+    private String documentID;
 
     private String currentLocation;
     private String destination;
     //0 For Car , 1 For Train , 2 For Tram/Metro
     private int transportationMethod;
-    private String result;
+    private String text;
 
-    public Result(String currentLocation, String destination, int transportationMethod, String result) {
+    public Result() {
+        //Needed for Firebase
+    }
+
+    public Result(String currentLocation, String destination, int transportationMethod, String text) {
         this.currentLocation = currentLocation;
         this.destination = destination;
         this.transportationMethod = transportationMethod;
-        this.result = result;
+        this.text = text;
     }
 
-    public String getResult() {
-        return result;
+    public String getText() {
+        return text;
     }
 
-    public long getResultId() {
-        return resultId;
+    @Exclude
+    public String getDocumentID() {
+        return documentID;
     }
 
-    public void setResultId(long resultId) {
-        this.resultId = resultId;
+    public void setDocumentID(String documentID) {
+        this.documentID = documentID;
     }
+
 
     public String getCurrentLocation() {
         return currentLocation;

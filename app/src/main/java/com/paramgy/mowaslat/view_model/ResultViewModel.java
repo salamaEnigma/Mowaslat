@@ -1,23 +1,18 @@
 package com.paramgy.mowaslat.view_model;
 
-import android.app.Application;
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.paramgy.mowaslat.data.model.Result;
 import com.paramgy.mowaslat.data.repository.AppRepository;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.ViewModel;
 
-public class ResultViewModel extends AndroidViewModel implements ResultViewModelInterface {
+public class ResultViewModel extends ViewModel implements ResultViewModelInterface {
 
-    private Context applicationContext;
 
     //Result Object
     private Result resultObject;
-    private long resultID;
+    private String resultID;
     private String resultString;
 
     // Error MSGs Fields
@@ -28,16 +23,15 @@ public class ResultViewModel extends AndroidViewModel implements ResultViewModel
 
     private AppRepository appRepository;
 
-    public ResultViewModel(@NonNull Application application) {
-        super(application);
-        applicationContext = application.getApplicationContext();
-        appRepository = AppRepository.getInstance(application);
+    public ResultViewModel() {
+
+        appRepository = AppRepository.getInstance();
     }
 
-    public Result getResultObject(String current, String destination, int method) {
+    private Result getResultObject(String current, String destination, int method) {
         Result result = appRepository.getResult(current, destination, method);
         if (result != null) {
-            resultID = result.getResultId();
+            resultID = result.getDocumentID();
         }
         return result;
     }
@@ -54,7 +48,7 @@ public class ResultViewModel extends AndroidViewModel implements ResultViewModel
             //Fetch The Result
             resultObject = getResultObject(current, destination, method);
             if (resultObject != null) {
-                resultString = resultObject.getResult();
+                resultString = resultObject.getText();
                 // Return The Result ...............
                 return resultString;
             } else {
@@ -84,8 +78,6 @@ public class ResultViewModel extends AndroidViewModel implements ResultViewModel
             Log.i("Result ID", resultID + "");
             Log.i("Result User Rating", rating + "");
             Log.i("Result Rate Update", "done!");
-            Toast.makeText(applicationContext,"Your feedback is appreciated :)",Toast.LENGTH_SHORT)
-                    .show();
         }
     } //end set user rating
 }

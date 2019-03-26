@@ -16,10 +16,13 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.paramgy.mowaslat.R;
+import com.paramgy.mowaslat.data.firestore.TinyDB;
 import com.paramgy.mowaslat.data.model.Location;
+import com.paramgy.mowaslat.data.repository.FirestoreCallback;
 import com.paramgy.mowaslat.view_model.AppViewModel;
 import com.paramgy.mowaslat.view_model.AppViewModelInterface;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
 
     //Fields
+    TinyDB tinyDB;
+    private static final String TAG = "MainActivity";
     private ArrayAdapter spinnerAdapter;
     private String currentLocation;
     private String destination;
@@ -58,14 +63,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         //Get ViewModel instance
         appViewModelInterface = ViewModelProviders.of(this).get(AppViewModel.class);
-        //Add an observer object ( this ) to observe the LiveData object: locations list
-        appViewModelInterface.getAllLocations().observe(this, this);
+
+
 
         //Initializing Views with ButterKnife
         ButterKnife.bind(this);
 
         //Spinner Settings
         setSpinner();
+
 
         //Set the Car button to be checked by default
         car_button.setChecked(true);
@@ -80,6 +86,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //Shared Preference and Locations List
+        tinyDB = new TinyDB(this);
+        if (tinyDB.getListString("locations").size() == 0) {
+            Log.d(TAG, "onCreate: OnlineData");
+            appViewModelInterface.getAllLocations(this);
+        } else {
+            Log.d(TAG, "onCreate: OfflineData");
+            ArrayList<String> locationsList = tinyDB.getListString("locations");
+            spinnerAdapter.clear();
+            spinnerAdapter.addAll(locationsList);
+            spinnerAdapter.notifyDataSetChanged();
+        }
+
     }// end onCreate();
 
     private void setSpinner() {
@@ -92,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         //Set Spinner Listeners
         spinner_current_location.setOnItemSelectedListener(this);
         spinner_destination.setOnItemSelectedListener(this);
-
     }// end setSpinners
 
 
@@ -172,15 +190,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         }
     }
 
-    //For Live Data (Observer)
-    @Override
-    public void onChanged(List<Location> locations) {
-        //To fills the spinners with list of locations
-        spinnerAdapter.addAll(locations);
-        spinnerAdapter.notifyDataSetChanged();
-    }
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
@@ -208,4 +217,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void dataCallback(List<Location> locations) {
+        ArrayList<String> locationsList = new ArrayList<>();
+        for(Location location : locations){
+            locationsList.add(location.getName());
+        }
+        tinyDB.putListString("locations", locationsList);
+        spinnerAdapter.clear();
+        spinnerAdapter.addAll(locationsList);
+        spinnerAdapter.notifyDataSetChanged();
+    }
+
+
 }// end MainActivity
