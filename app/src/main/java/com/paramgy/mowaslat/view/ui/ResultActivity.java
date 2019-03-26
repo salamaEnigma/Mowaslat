@@ -1,7 +1,6 @@
 package com.paramgy.mowaslat.view.ui;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -59,7 +58,7 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         destination = getIntent().getStringExtra("destination");
         method = getIntent().getIntExtra("method", 0);
 
-        //Show Result On Create
+        //Show and Check Result On Create
         checkResult();
 
         //set rating bar listener
@@ -78,13 +77,6 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
             return;
         }
         progressBar.setVisibility(View.VISIBLE);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(View.INVISIBLE);
-                resultTextView.setVisibility(View.VISIBLE);
-            }
-        }, 1500);
         resultViewModel.getResult(this, currentLocation, destination, method);
     }// end checkResult
 
@@ -93,8 +85,8 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
 
     @Override
     public void setUserRating(float userRating) {
-        if(result!= null) {
-            resultViewModel.setUserRating(userRating,result.getDocumentID());
+        if (result != null) {
+            resultViewModel.setUserRating(userRating, result.getDocumentID());
         }
     }
 
@@ -115,6 +107,8 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         } else {
             resultTextView.setText(ERROR_MSG_NOT_FOUND);
         }
+        progressBar.setVisibility(View.INVISIBLE);
+        resultTextView.setVisibility(View.VISIBLE);
     }// end resultCallback
 
 }
