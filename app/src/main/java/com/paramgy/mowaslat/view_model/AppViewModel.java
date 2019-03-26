@@ -1,7 +1,7 @@
 package com.paramgy.mowaslat.view_model;
 
-import com.paramgy.mowaslat.data.repository.AppRepository;
 import com.paramgy.mowaslat.data.firestore.FirestoreLocationsCallback;
+import com.paramgy.mowaslat.data.repository.AppRepository;
 
 import androidx.lifecycle.ViewModel;
 

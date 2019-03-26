@@ -2,7 +2,6 @@ package com.paramgy.mowaslat.view.ui;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -26,17 +25,20 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     @BindView(R.id.ratingBar)
     RatingBar resultRatingBar;
     @BindView(R.id.progress_bar)
-    ProgressBar porgressBar;
+    ProgressBar progressBar;
 
     //ViewModel Reference
     private ResultViewModelInterface resultViewModel;
+
+    //Result Object
+    Result result;
 
     //Search Fields
     private String currentLocation;
     private String destination;
     private int method;
-    private static final String TAG = "ResultActivity";
 
+    private static final String TAG = "ResultActivity";
     // Error MSGs Fields
     private static final String ERROR_MSG_SAME_LOCATION = "عاوز تروح نفس المكان اللي انت فيه؟!";
     private static final String ERROR_MSG_NOT_FOUND = "لسه مضفناش ( المكان / المواصلة ) لقاعدة البيانات";
@@ -75,27 +77,26 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
             resultTextView.setVisibility(View.VISIBLE);
             return;
         }
-
-        porgressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                porgressBar.setVisibility(View.INVISIBLE);
+                progressBar.setVisibility(View.INVISIBLE);
                 resultTextView.setVisibility(View.VISIBLE);
-
             }
         }, 1000);
         resultViewModel.getResult(this, currentLocation, destination, method);
+    }// end checkResult
 
-    }
+
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
-
 
     @Override
     public void setUserRating(float userRating) {
-        resultViewModel.setUserRating(userRating);
+        if(result!= null) {
+            resultViewModel.setUserRating(userRating,result.getDocumentID());
+        }
     }
-
 
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -108,6 +109,7 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     @Override
     public void resultCallback(Result result) {
         if (result != null) {
+            this.result = result;
             String text = result.getText();
             // Display The Result ...............
             resultTextView.setText(text);

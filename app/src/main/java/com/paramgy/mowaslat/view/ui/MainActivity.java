@@ -37,13 +37,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     AppViewModelInterface appViewModelInterface;
 
     //Views
-    @BindView(R.id.spinner_current_location) Spinner spinner_current_location;
-    @BindView(R.id.spinner_destination) Spinner spinner_destination;
-    @BindView(R.id.button_result) Button button_get_result;
-    @BindView(R.id.car) RadioButton car_button;
-    @BindView(R.id.radioGroup) RadioGroup radioGroup;
+    @BindView(R.id.spinner_current_location)
+    Spinner spinner_current_location;
+    @BindView(R.id.spinner_destination)
+    Spinner spinner_destination;
+    @BindView(R.id.button_result)
+    Button button_get_result;
+    @BindView(R.id.car)
+    RadioButton car_button;
+    @BindView(R.id.radioGroup)
+    RadioGroup radioGroup;
     //Navigation Drawer Fields
-    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
 
     //Fields
     TinyDB tinyDB;
@@ -62,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         //Get ViewModel instance
         appViewModelInterface = ViewModelProviders.of(this).get(AppViewModel.class);
-
 
 
         //Initializing Views with ButterKnife
@@ -100,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
     }// end onCreate();
 
+    //Spinner Settings
     private void setSpinner() {
         //Adapters For Spinners
         spinnerAdapter = new ArrayAdapter(this, R.layout.my_simple_spinner_item);
@@ -220,7 +226,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     @Override
     public void locationsListCallback(List<Location> locations) {
         ArrayList<String> locationsList = new ArrayList<>();
-        for(Location location : locations){
+        for (Location location : locations) {
             locationsList.add(location.getName());
         }
         tinyDB.putListString("locations", locationsList);

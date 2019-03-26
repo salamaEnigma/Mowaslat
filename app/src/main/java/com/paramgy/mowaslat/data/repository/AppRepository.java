@@ -3,7 +3,6 @@ package com.paramgy.mowaslat.data.repository;
 import com.paramgy.mowaslat.data.firestore.FireStoreRepository;
 import com.paramgy.mowaslat.data.firestore.FirestoreLocationsCallback;
 import com.paramgy.mowaslat.data.firestore.FirestoreResultCallback;
-import com.paramgy.mowaslat.data.model.Result;
 
 public class AppRepository {
     FireStoreRepository fireStoreRepository;
@@ -29,9 +28,8 @@ public class AppRepository {
         fireStoreRepository.getLocations(firestoreLocationsCallback);
     }
 
-    public void getResult(FirestoreResultCallback callback ,String current, String destination, int method) {
-         fireStoreRepository.getResult(callback,current, destination, method);
+    public void getResult(FirestoreResultCallback callback, String current, String destination, int method) {
+        fireStoreRepository.getResult(callback, current, destination, method);
     }
-
 
 }// end AppRepository Class

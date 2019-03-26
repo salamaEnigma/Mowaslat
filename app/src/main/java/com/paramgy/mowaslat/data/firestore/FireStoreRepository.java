@@ -18,13 +18,11 @@ import androidx.annotation.NonNull;
 public class FireStoreRepository {
 
     //Database Fields
-
     FirebaseFirestore db;
     CollectionReference locationsCollectionRef;
     CollectionReference resultsCollectionRef;
 
-
-    public static final String TAG = "Firestore";
+    private static final String TAG = "Firestore";
 
     private static final String KEY_RESULT_CURRENT = "currentLocation";
     private static final String KEY_RESULT_DESTINATION = "destination";
