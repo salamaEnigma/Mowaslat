@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "205175151245",
+    "firebase_url": "https://mowaslat-868db.firebaseio.com",
+    "project_id": "mowaslat-868db",
+    "storage_bucket": "mowaslat-868db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205175151245:android:55b9b7adf25739d0",
+        "android_client_info": {
+          "package_name": "com.paramgy.mowaslat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "205175151245-a06b17rjra33dgfu14ovu6ruv2bdqcb8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.paramgy.mowaslat",
+            "certificate_hash": "16da862e4286ba3a86f8e3271dcd0419df1b745b"
+          }
+        },
+        {
+          "client_id": "205175151245-sj58ecsa4jtmrevckjd2lnpdmvucont5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvjd-CMn3UVm9A6-gdW8ksMTjr-x2yqck"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "205175151245-sj58ecsa4jtmrevckjd2lnpdmvucont5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
