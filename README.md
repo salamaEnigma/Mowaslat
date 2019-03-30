@@ -1,6 +1,6 @@
-# Mowaslat Demo
+# Mowaslat
 
-A demo for testing purposes to a public transportation guide app in Alexandria.
+a public transportation guide app in Alexandria.
 
 # What I learned doing the app
 
