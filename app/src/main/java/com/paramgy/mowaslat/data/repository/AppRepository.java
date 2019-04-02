@@ -32,7 +32,7 @@ public class AppRepository {
         fireStoreRepository.getResult(callback, current, destination, method);
     }
 
-    public void setResultRating(float rating, String resultID, String userUniqueID){
-        fireStoreRepository.setResultRating(rating,resultID,userUniqueID);
+    public void setResultRating(float rating, String resultID, String uniqueID){
+        fireStoreRepository.setResultRating(rating,resultID,uniqueID);
     }
 }// end AppRepository Class

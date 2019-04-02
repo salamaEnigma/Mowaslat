@@ -1,6 +1,8 @@
 package com.paramgy.mowaslat.view.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -23,6 +25,7 @@ import com.paramgy.mowaslat.view_model.AppViewModelInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,8 +62,10 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private String destination;
     private int method;
     int currentLocationPosition;
-    int destinationPosition ;
+    int destinationPosition;
     boolean doubleBackToExitPressedOnce = false;
+    private static String uniqueID = null;
+    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
 
 
     @Override
@@ -105,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             spinnerAdapter.notifyDataSetChanged();
         }
 
+        //Generate Or Get User Unique ID
+        uniqueID = id(this);
     }// end onCreate();
 
     //Spinner Settings
@@ -120,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         spinner_destination.setOnItemSelectedListener(this);
     }// end setSpinners
 
-    //* * * * * * * * * * Button OnClicks * * * * * * * * * * * *
+    //* * * * * * * * * * Button OnClicks  and Utility Methods * * * * * * * * * * * *
     public void swapLocations(View view) {
         // Swap Selections In The Spinners
         spinner_current_location.setSelection(destinationPosition);
@@ -155,6 +162,23 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         }, 2000);
     }
 
+    public synchronized static String id(Context context) {
+        if (uniqueID == null) {
+            SharedPreferences sharedPrefs = context.getSharedPreferences(
+                    PREF_UNIQUE_ID, Context.MODE_PRIVATE);
+            uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
+
+            if (uniqueID == null) {
+                uniqueID = UUID.randomUUID().toString();
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putString(PREF_UNIQUE_ID, uniqueID);
+                editor.apply();
+            }
+        }
+
+        return uniqueID;
+    }
+
 
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
     @Override
@@ -164,6 +188,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         resultIntent.putExtra("currentLocation", currentLocation);
         resultIntent.putExtra("destination", destination);
         resultIntent.putExtra("method", method);
+        resultIntent.putExtra("uniqueID",uniqueID);
         startActivity(resultIntent);
     } // end On Click
 

@@ -59,4 +59,5 @@ public class IntroActivity extends AppCompatActivity {
         }, SPLASH_TIMEOUT);
 
     }// end on Create
+
 }

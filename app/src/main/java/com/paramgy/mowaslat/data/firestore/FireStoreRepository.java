@@ -11,6 +11,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.paramgy.mowaslat.data.model.Location;
 import com.paramgy.mowaslat.data.model.Result;
 
@@ -31,9 +32,9 @@ public class FireStoreRepository {
 
     private static final String TAG = "Firestore";
 
-    private static final String KEY_RESULT_CURRENT = "currentLocation";
+    private static final String KEY_RESULT_CURRENT = "current";
     private static final String KEY_RESULT_DESTINATION = "destination";
-    private static final String KEY_RESULT_METHOD = "transportationMethod";
+    private static final String KEY_RESULT_METHOD = "method";
 
     public FireStoreRepository() {
         db = FirebaseFirestore.getInstance();
@@ -93,15 +94,15 @@ public class FireStoreRepository {
 
 
 
-    public void setResultRating(float rating, String resultID, String userUniqueID){
+    public void setResultRating(float rating, String resultID, String uniqueID){
         // Do Some Operations to save the rating
-        Map<String,Object>  rateO = new HashMap<>();
-        rateO.put("rate",rating);
-        rateO.put("resultID",resultID);
-        rateO.put("userUniqueID",userUniqueID);
+        String rateID = resultID+uniqueID;
+        Map<String,Object>  rate = new HashMap<>();
+        rate.put("rate",rating);
+        rate.put("resultID",resultID);
 
-        DocumentReference docRef = ratingsCollectionRef.document();
-        docRef.set(rateO).addOnSuccessListener(new OnSuccessListener<Void>() {
+        DocumentReference docRef = ratingsCollectionRef.document(rateID);
+        docRef.set(rate, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 Log.d(TAG, "onSuccess: Rating Done");

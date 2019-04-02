@@ -36,16 +36,9 @@ public class ResultViewModel extends AndroidViewModel implements ResultViewModel
     */
 
     @Override
-    public void setUserRating(float rating, String resultID, String userUniqueID) {
-                /*
-                 Set Result Rating Somewhere Somehow XD !
-                 and make update only if the result already exists and has a string text result
-                 */
-        Log.i("Result UUID", userUniqueID);
-        Log.i("Result ID", resultID + "");
-        Log.i("Result User Rating", rating + "");
-        Log.i("Result Rate Update", "done!");
-        appRepository.setResultRating(rating,resultID,userUniqueID);
+    public void setUserRating(float rating, String resultID, String uniqueID) {
+
+        appRepository.setResultRating(rating,resultID,uniqueID);
         Toast.makeText(applicationContext, "Thank you for your feedback", Toast.LENGTH_SHORT).show();
 
     } //end set user rating

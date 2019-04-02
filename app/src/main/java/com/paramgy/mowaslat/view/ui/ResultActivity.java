@@ -41,9 +41,8 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     private String destination;
     private int method;
 
-    private static final String TAG = "ResultActivity";
-    private static String uniqueID = null;
-    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
+    private String uniqueID ;
+
 
     // Error MSGs Fields
     private static final String ERROR_MSG_SAME_LOCATION = "عاوز تروح نفس المكان اللي إنت فيه؟!";
@@ -65,15 +64,14 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         destination = getIntent().getStringExtra("destination");
         method = getIntent().getIntExtra("method", 0);
 
+        //Get uniqueID
+        uniqueID = getIntent().getStringExtra("uniqueID");
+
         //Show and Check Result On Create
         checkResult();
 
         //set rating bar listener
         resultRatingBar.setOnRatingBarChangeListener(this);
-
-        // generate or get UUID
-        uniqueID = id(this);
-
     } // end on create
 
     public void closeButtonClicked(View view) {
@@ -89,24 +87,6 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         progressBar.setVisibility(View.VISIBLE);
         resultViewModel.getResult(this, currentLocation, destination, method);
     }// end checkResult
-
-
-    public synchronized static String id(Context context) {
-        if (uniqueID == null) {
-            SharedPreferences sharedPrefs = context.getSharedPreferences(
-                    PREF_UNIQUE_ID, Context.MODE_PRIVATE);
-            uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
-
-            if (uniqueID == null) {
-                uniqueID = UUID.randomUUID().toString();
-                SharedPreferences.Editor editor = sharedPrefs.edit();
-                editor.putString(PREF_UNIQUE_ID, uniqueID);
-                editor.apply();
-            }
-        }
-
-        return uniqueID;
-    }
 
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
 
