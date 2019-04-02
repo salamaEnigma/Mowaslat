@@ -39,7 +39,7 @@ public class FireStoreRepository {
         db = FirebaseFirestore.getInstance();
         locationsCollectionRef = db.collection("locations");
         resultsCollectionRef = db.collection("results");
-        resultsCollectionRef = db.collection("ratings");
+        ratingsCollectionRef = db.collection("ratings");
     }
 
     public void getResult(FirestoreResultCallback callback, String current, String destination, int method) {
