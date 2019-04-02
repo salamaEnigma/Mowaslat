@@ -1,6 +1,7 @@
 package com.paramgy.mowaslat.view.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -94,6 +95,14 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     public void setUserRating(float userRating) {
         if (result != null) {
             resultViewModel.setUserRating(userRating, result.getDocumentID(),uniqueID);
+            if (userRating<3){
+                Intent intent = new Intent(this,MessageActivity.class);
+                intent.putExtra("isBadResult",true);
+                intent.putExtra("current",currentLocation);
+                intent.putExtra("destination",destination);
+                intent.putExtra("method",method);
+                startActivity(intent);
+            }
         }
     }
 

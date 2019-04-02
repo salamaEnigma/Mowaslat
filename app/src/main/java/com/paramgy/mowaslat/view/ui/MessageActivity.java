@@ -25,6 +25,12 @@ public class MessageActivity extends AppCompatActivity {
 
         //Initializing Views
         ButterKnife.bind(this);
+
+        boolean isBadResult = getIntent().getBooleanExtra("isBadResult",false);
+
+        if(isBadResult){
+            editText.setHint("اقترح طريق أفضل");
+        }
     }
 
     public void closeButtonClicked(View view) {
