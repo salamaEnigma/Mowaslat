@@ -2,10 +2,8 @@ package com.paramgy.mowaslat.data.firestore;
 
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -15,10 +13,11 @@ import com.google.firebase.firestore.SetOptions;
 import com.paramgy.mowaslat.data.model.Location;
 import com.paramgy.mowaslat.data.model.Result;
 
+import org.hashids.Hashids;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import androidx.annotation.NonNull;
 
@@ -44,32 +43,32 @@ public class FireStoreRepository {
     }
 
     public void getResult(FirestoreResultCallback callback, String current, String destination, int method) {
-        Log.d(TAG, "getResult: "+ current);
-        Log.d(TAG, "getResult: "+ destination);
-        Log.d(TAG, "getResult: "+ method);
+        Log.d(TAG, "getResult: " + current);
+        Log.d(TAG, "getResult: " + destination);
+        Log.d(TAG, "getResult: " + method);
         resultsCollectionRef.whereEqualTo(KEY_RESULT_CURRENT, current)
                 .whereEqualTo(KEY_RESULT_DESTINATION, destination)
                 .whereEqualTo(KEY_RESULT_METHOD, method)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                Log.d(TAG, "onSuccess: Query");
-                Log.d(TAG, "onSuccess: is empty? "+queryDocumentSnapshots.isEmpty());
-                if(!queryDocumentSnapshots.isEmpty()) {
-                    for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        Log.d(TAG, "onSuccess: Query");
+                        Log.d(TAG, "onSuccess: is empty? " + queryDocumentSnapshots.isEmpty());
+                        if (!queryDocumentSnapshots.isEmpty()) {
+                            for (QueryDocumentSnapshot doc : queryDocumentSnapshots) {
 
-                        Result result = doc.toObject(Result.class);
-                        String documentID = doc.getId();
-                        result.setDocumentID(documentID);
-                        callback.resultCallback(result);
-                    }
-                }else {
-                    Log.d(TAG, "onSuccess: Doc Doesn't Exist");
-                    callback.resultCallback(null);
-                }
-            }// end onSuccess
-        }).addOnFailureListener(new OnFailureListener() {
+                                Result result = doc.toObject(Result.class);
+                                String documentID = doc.getId();
+                                result.setDocumentID(documentID);
+                                callback.resultCallback(result);
+                            }
+                        } else {
+                            Log.d(TAG, "onSuccess: Doc Doesn't Exist");
+                            callback.resultCallback(null);
+                        }
+                    }// end onSuccess
+                }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, e.getMessage());
@@ -93,13 +92,16 @@ public class FireStoreRepository {
     }// end getLocations
 
 
+    // Rating method
+    public void setResultRating(float rating, String resultID, String uniqueID) {
+        // Hashing uniqueID
+        Hashids hashids = new Hashids("com.paramgy.mowaslat");
+        String hashUniqueID = hashids.encode(uniqueID.hashCode());
+        String rateID = "#" + hashUniqueID + "#" + resultID;
 
-    public void setResultRating(float rating, String resultID, String uniqueID){
-        // Do Some Operations to save the rating
-        String rateID = resultID+uniqueID;
-        Map<String,Object>  rate = new HashMap<>();
-        rate.put("rate",rating);
-        rate.put("resultID",resultID);
+        Map<String, Object> rate = new HashMap<>();
+        rate.put("rate", rating);
+        rate.put("resultID", resultID);
 
         DocumentReference docRef = ratingsCollectionRef.document(rateID);
         docRef.set(rate, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -114,5 +116,5 @@ public class FireStoreRepository {
             }
         });
 
-    }
+    } // end set Rating
 }

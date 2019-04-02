@@ -27,11 +27,10 @@ public class MessageActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         boolean isBadResult = getIntent().getBooleanExtra("isBadResult",false);
-
         if(isBadResult){
             editText.setHint("اقترح طريق أفضل");
         }
-    }
+    } // end on create
 
     public void closeButtonClicked(View view) {
         onBackPressed();
@@ -39,6 +38,7 @@ public class MessageActivity extends AppCompatActivity {
 
     public void sendButtonClicked(View view) {
         String message = editText.getText().toString();
+        //TODO Some action to send a msg
         Log.i("User Message", message);
         Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
 

@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         resultIntent.putExtra("currentLocation", currentLocation);
         resultIntent.putExtra("destination", destination);
         resultIntent.putExtra("method", method);
-        resultIntent.putExtra("uniqueID",uniqueID);
+        resultIntent.putExtra("uniqueID", uniqueID);
         startActivity(resultIntent);
     } // end On Click
 

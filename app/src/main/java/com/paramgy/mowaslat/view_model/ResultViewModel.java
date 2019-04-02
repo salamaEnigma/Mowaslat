@@ -2,7 +2,6 @@ package com.paramgy.mowaslat.view_model;
 
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.paramgy.mowaslat.data.firestore.FirestoreResultCallback;
@@ -10,12 +9,12 @@ import com.paramgy.mowaslat.data.repository.AppRepository;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.ViewModel;
 
 public class ResultViewModel extends AndroidViewModel implements ResultViewModelInterface {
 
     private AppRepository appRepository;
-    private Context applicationContext ;
+    private Context applicationContext;
+
     public ResultViewModel(@NonNull Application application) {
         super(application);
         appRepository = AppRepository.getInstance();
@@ -38,7 +37,7 @@ public class ResultViewModel extends AndroidViewModel implements ResultViewModel
     @Override
     public void setUserRating(float rating, String resultID, String uniqueID) {
 
-        appRepository.setResultRating(rating,resultID,uniqueID);
+        appRepository.setResultRating(rating, resultID, uniqueID);
         Toast.makeText(applicationContext, "Thank you for your feedback", Toast.LENGTH_SHORT).show();
 
     } //end set user rating

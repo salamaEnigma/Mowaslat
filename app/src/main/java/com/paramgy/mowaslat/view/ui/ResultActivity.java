@@ -1,8 +1,6 @@
 package com.paramgy.mowaslat.view.ui;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -13,8 +11,6 @@ import com.paramgy.mowaslat.R;
 import com.paramgy.mowaslat.data.model.Result;
 import com.paramgy.mowaslat.view_model.ResultViewModel;
 import com.paramgy.mowaslat.view_model.ResultViewModelInterface;
-
-import java.util.UUID;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
@@ -42,7 +38,7 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     private String destination;
     private int method;
 
-    private String uniqueID ;
+    private String uniqueID;
 
 
     // Error MSGs Fields
@@ -75,6 +71,9 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         resultRatingBar.setOnRatingBarChangeListener(this);
     } // end on create
 
+
+    // * * * * * * * * * * Button onClicks and Utility Methods * * * * * * * * * * //
+
     public void closeButtonClicked(View view) {
         onBackPressed();
     }
@@ -94,13 +93,13 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     @Override
     public void setUserRating(float userRating) {
         if (result != null) {
-            resultViewModel.setUserRating(userRating, result.getDocumentID(),uniqueID);
-            if (userRating<3){
-                Intent intent = new Intent(this,MessageActivity.class);
-                intent.putExtra("isBadResult",true);
-                intent.putExtra("current",currentLocation);
-                intent.putExtra("destination",destination);
-                intent.putExtra("method",method);
+            resultViewModel.setUserRating(userRating, result.getDocumentID(), uniqueID);
+            if (userRating <= 2) {
+                Intent intent = new Intent(this, MessageActivity.class);
+                intent.putExtra("isBadResult", true);
+                intent.putExtra("current", currentLocation);
+                intent.putExtra("destination", destination);
+                intent.putExtra("method", method);
                 startActivity(intent);
             }
         }
