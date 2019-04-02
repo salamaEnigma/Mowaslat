@@ -1,18 +1,25 @@
 package com.paramgy.mowaslat.view_model;
 
+import android.app.Application;
+import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.paramgy.mowaslat.data.firestore.FirestoreResultCallback;
 import com.paramgy.mowaslat.data.repository.AppRepository;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.ViewModel;
 
-public class ResultViewModel extends ViewModel implements ResultViewModelInterface {
+public class ResultViewModel extends AndroidViewModel implements ResultViewModelInterface {
 
     private AppRepository appRepository;
-
-    public ResultViewModel() {
+    private Context applicationContext ;
+    public ResultViewModel(@NonNull Application application) {
+        super(application);
         appRepository = AppRepository.getInstance();
+        applicationContext = application.getApplicationContext();
     }
 
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
@@ -29,15 +36,20 @@ public class ResultViewModel extends ViewModel implements ResultViewModelInterfa
     */
 
     @Override
-    public void setUserRating(float rating, String resultID) {
+    public void setUserRating(float rating, String resultID, String userUniqueID) {
                 /*
                  Set Result Rating Somewhere Somehow XD !
                  and make update only if the result already exists and has a string text result
                  */
+        Log.i("Result UUID", userUniqueID);
         Log.i("Result ID", resultID + "");
         Log.i("Result User Rating", rating + "");
         Log.i("Result Rate Update", "done!");
+        appRepository.setResultRating(rating,resultID,userUniqueID);
+        Toast.makeText(applicationContext, "Thank you for your feedback", Toast.LENGTH_SHORT).show();
 
     } //end set user rating
+
+
 }
 

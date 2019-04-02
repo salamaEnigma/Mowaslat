@@ -6,5 +6,5 @@ public interface ResultViewModelInterface  {
 
     void getResult(FirestoreResultCallback callback ,String current, String destination, int method);
 
-    void setUserRating(float rating , String resultID);
+    void setUserRating(float rating , String resultID, String userID);
 }

@@ -1,5 +1,7 @@
 package com.paramgy.mowaslat.view.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -10,6 +12,8 @@ import com.paramgy.mowaslat.R;
 import com.paramgy.mowaslat.data.model.Result;
 import com.paramgy.mowaslat.view_model.ResultViewModel;
 import com.paramgy.mowaslat.view_model.ResultViewModelInterface;
+
+import java.util.UUID;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
@@ -38,6 +42,9 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     private int method;
 
     private static final String TAG = "ResultActivity";
+    private static String uniqueID = null;
+    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
+
     // Error MSGs Fields
     private static final String ERROR_MSG_SAME_LOCATION = "عاوز تروح نفس المكان اللي إنت فيه؟!";
     private static final String ERROR_MSG_NOT_FOUND = "لسه مضفناش ( المكان / المواصلة ) لقاعدة البيانات";
@@ -64,6 +71,9 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         //set rating bar listener
         resultRatingBar.setOnRatingBarChangeListener(this);
 
+        // generate or get UUID
+        uniqueID = id(this);
+
     } // end on create
 
     public void closeButtonClicked(View view) {
@@ -81,12 +91,29 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     }// end checkResult
 
 
+    public synchronized static String id(Context context) {
+        if (uniqueID == null) {
+            SharedPreferences sharedPrefs = context.getSharedPreferences(
+                    PREF_UNIQUE_ID, Context.MODE_PRIVATE);
+            uniqueID = sharedPrefs.getString(PREF_UNIQUE_ID, null);
+
+            if (uniqueID == null) {
+                uniqueID = UUID.randomUUID().toString();
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putString(PREF_UNIQUE_ID, uniqueID);
+                editor.apply();
+            }
+        }
+
+        return uniqueID;
+    }
+
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
 
     @Override
     public void setUserRating(float userRating) {
         if (result != null) {
-            resultViewModel.setUserRating(userRating, result.getDocumentID());
+            resultViewModel.setUserRating(userRating, result.getDocumentID(),uniqueID);
         }
     }
 
@@ -111,4 +138,4 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         resultTextView.setVisibility(View.VISIBLE);
     }// end resultCallback
 
-}
+} //end resultActivity

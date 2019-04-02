@@ -7,6 +7,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -14,6 +15,9 @@ import com.paramgy.mowaslat.data.model.Location;
 import com.paramgy.mowaslat.data.model.Result;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 
@@ -23,6 +27,7 @@ public class FireStoreRepository {
     FirebaseFirestore db;
     CollectionReference locationsCollectionRef;
     CollectionReference resultsCollectionRef;
+    CollectionReference ratingsCollectionRef;
 
     private static final String TAG = "Firestore";
 
@@ -34,10 +39,13 @@ public class FireStoreRepository {
         db = FirebaseFirestore.getInstance();
         locationsCollectionRef = db.collection("locations");
         resultsCollectionRef = db.collection("results");
+        resultsCollectionRef = db.collection("ratings");
     }
 
     public void getResult(FirestoreResultCallback callback, String current, String destination, int method) {
-
+        Log.d(TAG, "getResult: "+ current);
+        Log.d(TAG, "getResult: "+ destination);
+        Log.d(TAG, "getResult: "+ method);
         resultsCollectionRef.whereEqualTo(KEY_RESULT_CURRENT, current)
                 .whereEqualTo(KEY_RESULT_DESTINATION, destination)
                 .whereEqualTo(KEY_RESULT_METHOD, method)
@@ -84,4 +92,26 @@ public class FireStoreRepository {
     }// end getLocations
 
 
+
+    public void setResultRating(float rating, String resultID, String userUniqueID){
+        // Do Some Operations to save the rating
+        Map<String,Object>  rateO = new HashMap<>();
+        rateO.put("rate",rating);
+        rateO.put("resultID",resultID);
+        rateO.put("userUniqueID",userUniqueID);
+
+        DocumentReference docRef = ratingsCollectionRef.document();
+        docRef.set(rateO).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "onSuccess: Rating Done");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, e.getMessage());
+            }
+        });
+
+    }
 }

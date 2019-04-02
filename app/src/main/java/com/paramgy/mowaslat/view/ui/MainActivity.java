@@ -58,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     private String currentLocation;
     private String destination;
     private int method;
+    int currentLocationPosition;
+    int destinationPosition ;
     boolean doubleBackToExitPressedOnce = false;
 
 
@@ -118,6 +120,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         spinner_destination.setOnItemSelectedListener(this);
     }// end setSpinners
 
+    //* * * * * * * * * * Button OnClicks * * * * * * * * * * * *
+    public void swapLocations(View view) {
+        // Swap Selections In The Spinners
+        spinner_current_location.setSelection(destinationPosition);
+        spinner_destination.setSelection(currentLocationPosition);
+    }
 
     public void menuButtonClicked(View view) {
         drawer.openDrawer(GravityCompat.START);
@@ -165,9 +173,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
 
         if (parentId.equals("spinner_current_location")) {
             Log.i("test chosen from", "spinner_current_location");
+            currentLocationPosition = position;
             currentLocation = parent.getItemAtPosition(position).toString();
         } else {
             Log.i("test chosen from", "spinner_destination");
+            destinationPosition = position;
             destination = parent.getItemAtPosition(position).toString();
         }
     }
@@ -234,6 +244,5 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         spinnerAdapter.addAll(locationsList);
         spinnerAdapter.notifyDataSetChanged();
     }
-
 
 }// end MainActivity
