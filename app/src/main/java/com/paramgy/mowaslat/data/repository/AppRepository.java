@@ -1,12 +1,12 @@
 package com.paramgy.mowaslat.data.repository;
 
 import com.paramgy.mowaslat.data.firestore.FireStoreRepository;
-import com.paramgy.mowaslat.data.firestore.FirestoreLocationsCallback;
-import com.paramgy.mowaslat.data.firestore.FirestoreResultCallback;
+import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreLocationsCallback;
+import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreResultCallback;
 
 public class AppRepository {
-    FireStoreRepository fireStoreRepository;
-    public static final String TAG = "AppRepository";
+    private FireStoreRepository fireStoreRepository;
+
     /*
     Singleton pattern
      */
@@ -32,7 +32,11 @@ public class AppRepository {
         fireStoreRepository.getResult(callback, current, destination, method);
     }
 
-    public void setResultRating(float rating, String resultID, String uniqueID){
-        fireStoreRepository.setResultRating(rating,resultID,uniqueID);
+    public void setResultRating(float rating, String resultID, String uniqueID) {
+        fireStoreRepository.setResultRating(rating, resultID, uniqueID);
+    }
+
+    public void sendMsg(String text) {
+        //todo send msg via email
     }
 }// end AppRepository Class

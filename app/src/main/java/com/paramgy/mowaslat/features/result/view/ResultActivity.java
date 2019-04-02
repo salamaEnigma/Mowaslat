@@ -1,4 +1,4 @@
-package com.paramgy.mowaslat.view.ui;
+package com.paramgy.mowaslat.features.result.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,16 +8,18 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.paramgy.mowaslat.R;
-import com.paramgy.mowaslat.data.model.Result;
-import com.paramgy.mowaslat.view_model.ResultViewModel;
-import com.paramgy.mowaslat.view_model.ResultViewModelInterface;
+import com.paramgy.mowaslat.data.model.pojos.Result;
+import com.paramgy.mowaslat.features.message.view.MessageActivity;
+import com.paramgy.mowaslat.features.result.contracts.ResultViewContract;
+import com.paramgy.mowaslat.features.result.viewmodel.ResultViewModel;
+import com.paramgy.mowaslat.features.result.contracts.ResultViewModelContract;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ResultActivity extends AppCompatActivity implements ResultActivityInterface {
+public class ResultActivity extends AppCompatActivity implements ResultViewContract {
 
     //Views
     @BindView(R.id.result_text_view)
@@ -28,7 +30,7 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
     ProgressBar progressBar;
 
     //ViewModel Reference
-    private ResultViewModelInterface resultViewModel;
+    private ResultViewModelContract resultViewModel;
 
     //Result Object
     Result result;
@@ -88,9 +90,6 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
         resultViewModel.getResult(this, currentLocation, destination, method);
     }// end checkResult
 
-    // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
-
-    @Override
     public void setUserRating(float userRating) {
         if (result != null) {
             resultViewModel.setUserRating(userRating, result.getDocumentID(), uniqueID);
@@ -104,6 +103,9 @@ public class ResultActivity extends AppCompatActivity implements ResultActivityI
             }
         }
     }
+
+    // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
+
 
     @Override
     public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {

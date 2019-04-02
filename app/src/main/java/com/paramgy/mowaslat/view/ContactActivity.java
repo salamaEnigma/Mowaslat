@@ -1,4 +1,4 @@
-package com.paramgy.mowaslat.view.ui;
+package com.paramgy.mowaslat.view;
 
 import android.os.Bundle;
 import android.view.View;

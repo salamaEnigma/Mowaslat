@@ -30,7 +30,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".view.ui.MainActivity">
+                tools:context=".features.main.view.MainActivity">
 
                 <ImageView
                     android:id="@+id/logo_background"

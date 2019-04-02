@@ -9,11 +9,11 @@
         android:roundIcon="@drawable/car"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.paramgy.mowaslat.view.ui.ResultActivity"></activity>
-        <activity android:name="com.paramgy.mowaslat.view.ui.MessageActivity"></activity>
-        <activity android:name="com.paramgy.mowaslat.view.ui.ContactActivity"></activity>
+        <activity android:name="com.paramgy.mowaslat.features.result.view.ResultActivity"></activity>
+        <activity android:name="com.paramgy.mowaslat.features.message.view.MessageActivity"></activity>
+        <activity android:name="com.paramgy.mowaslat.view.ContactActivity"></activity>
         <activity
-            android:name="com.paramgy.mowaslat.view.ui.IntroActivity"
+            android:name="com.paramgy.mowaslat.view.IntroActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.paramgy.mowaslat.view.ui.MainActivity"
+            android:name="com.paramgy.mowaslat.features.main.view.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

@@ -1,4 +1,4 @@
-package com.paramgy.mowaslat.data.model;
+package com.paramgy.mowaslat.data.model.pojos;
 
 import com.google.firebase.firestore.Exclude;
 

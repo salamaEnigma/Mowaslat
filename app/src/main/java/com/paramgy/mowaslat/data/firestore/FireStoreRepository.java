@@ -10,8 +10,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
-import com.paramgy.mowaslat.data.model.Location;
-import com.paramgy.mowaslat.data.model.Result;
+import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreLocationsCallback;
+import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreResultCallback;
+import com.paramgy.mowaslat.data.model.pojos.Location;
+import com.paramgy.mowaslat.data.model.pojos.Result;
 
 import org.hashids.Hashids;
 
@@ -24,10 +26,11 @@ import androidx.annotation.NonNull;
 public class FireStoreRepository {
 
     //Database Fields
-    FirebaseFirestore db;
-    CollectionReference locationsCollectionRef;
-    CollectionReference resultsCollectionRef;
-    CollectionReference ratingsCollectionRef;
+    private FirebaseFirestore db;
+    private CollectionReference locationsCollectionRef;
+    private CollectionReference resultsCollectionRef;
+    private CollectionReference ratingsCollectionRef;
+
 
     private static final String TAG = "Firestore";
 
@@ -117,4 +120,5 @@ public class FireStoreRepository {
         });
 
     } // end set Rating
+
 }

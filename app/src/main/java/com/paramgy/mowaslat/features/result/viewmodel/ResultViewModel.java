@@ -1,16 +1,17 @@
-package com.paramgy.mowaslat.view_model;
+package com.paramgy.mowaslat.features.result.viewmodel;
 
 import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.paramgy.mowaslat.data.firestore.FirestoreResultCallback;
+import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreResultCallback;
 import com.paramgy.mowaslat.data.repository.AppRepository;
+import com.paramgy.mowaslat.features.result.contracts.ResultViewModelContract;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-public class ResultViewModel extends AndroidViewModel implements ResultViewModelInterface {
+public class ResultViewModel extends AndroidViewModel implements ResultViewModelContract {
 
     private AppRepository appRepository;
     private Context applicationContext;
@@ -27,12 +28,6 @@ public class ResultViewModel extends AndroidViewModel implements ResultViewModel
     public void getResult(FirestoreResultCallback callback, String current, String destination, int method) {
         appRepository.getResult(callback, current, destination, method);
     } //end getResultString
-
-    /*
-    DOES THIS SET THE RATE ON THE OBJECT IN MEMORY OR IN DATABASE OR BOTH ??
-    Answer: Only In Memory man :) !
-    ** Good Debugging Enigma :D !
-    */
 
     @Override
     public void setUserRating(float rating, String resultID, String uniqueID) {

@@ -1,6 +1,6 @@
-package com.paramgy.mowaslat.data.firestore;
+package com.paramgy.mowaslat.data.firestore.callbacks;
 
-import com.paramgy.mowaslat.data.model.Location;
+import com.paramgy.mowaslat.data.model.pojos.Location;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.paramgy.mowaslat.view.ui;
+package com.paramgy.mowaslat.features.main.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,9 +19,13 @@ import android.widget.Toast;
 import com.google.android.material.navigation.NavigationView;
 import com.paramgy.mowaslat.R;
 import com.paramgy.mowaslat.data.firestore.TinyDB;
-import com.paramgy.mowaslat.data.model.Location;
-import com.paramgy.mowaslat.view_model.AppViewModel;
-import com.paramgy.mowaslat.view_model.AppViewModelInterface;
+import com.paramgy.mowaslat.data.model.pojos.Location;
+import com.paramgy.mowaslat.view.ContactActivity;
+import com.paramgy.mowaslat.features.main.contracts.MainViewContract;
+import com.paramgy.mowaslat.features.message.view.MessageActivity;
+import com.paramgy.mowaslat.features.result.view.ResultActivity;
+import com.paramgy.mowaslat.features.main.viewmodel.LocationsViewModel;
+import com.paramgy.mowaslat.features.main.contracts.LocationsViewModelContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +39,9 @@ import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainActivityInterface {
+public class MainActivity extends AppCompatActivity implements MainViewContract {
 
-    AppViewModelInterface appViewModelInterface;
+    LocationsViewModelContract locationsViewModelContract;
 
     //Views
     @BindView(R.id.spinner_current_location)
@@ -74,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         setContentView(R.layout.activity_main);
 
         //Get ViewModel instance
-        appViewModelInterface = ViewModelProviders.of(this).get(AppViewModel.class);
+        locationsViewModelContract = ViewModelProviders.of(this).get(LocationsViewModel.class);
 
 
         //Initializing Views with ButterKnife
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
         tinyDB = new TinyDB(this);
         if (tinyDB.getListString("locations").size() == 0) {
             Log.d(TAG, "onCreate: OnlineData");
-            appViewModelInterface.getAllLocations(this);
+            locationsViewModelContract.getAllLocations(this);
         } else {
             Log.d(TAG, "onCreate: OfflineData");
             ArrayList<String> locationsList = tinyDB.getListString("locations");

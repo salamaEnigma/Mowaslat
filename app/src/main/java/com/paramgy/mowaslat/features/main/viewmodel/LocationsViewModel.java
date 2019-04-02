@@ -1,17 +1,16 @@
-package com.paramgy.mowaslat.view_model;
+package com.paramgy.mowaslat.features.main.viewmodel;
 
-import com.paramgy.mowaslat.data.firestore.FirestoreLocationsCallback;
+import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreLocationsCallback;
 import com.paramgy.mowaslat.data.repository.AppRepository;
+import com.paramgy.mowaslat.features.main.contracts.LocationsViewModelContract;
 
 import androidx.lifecycle.ViewModel;
 
-public class AppViewModel extends ViewModel implements AppViewModelInterface {
+public class LocationsViewModel extends ViewModel implements LocationsViewModelContract {
 
     private AppRepository appRepository;
-    private static final String TAG = "AppViewModel";
 
-
-    public AppViewModel() {
+    public LocationsViewModel() {
         appRepository = AppRepository.getInstance();
     }
 

@@ -1,8 +1,8 @@
-package com.paramgy.mowaslat.view_model;
+package com.paramgy.mowaslat.features.result.contracts;
 
-import com.paramgy.mowaslat.data.firestore.FirestoreResultCallback;
+import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreResultCallback;
 
-public interface ResultViewModelInterface  {
+public interface ResultViewModelContract {
 
     void getResult(FirestoreResultCallback callback ,String current, String destination, int method);
 

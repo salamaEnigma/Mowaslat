@@ -1,4 +1,4 @@
-package com.paramgy.mowaslat.view.ui;
+package com.paramgy.mowaslat.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
 import com.paramgy.mowaslat.R;
+import com.paramgy.mowaslat.features.main.view.MainActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
