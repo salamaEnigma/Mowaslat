@@ -21,6 +21,7 @@
             android:background="@drawable/ic_navigation_menu"
             android:onClick="menuButtonClicked" />
 
+
         <!-- Layout to contain contents of main body of screen (drawer will slide over this) -->
         <FrameLayout
             android:id="@+id/content_frame"
@@ -187,14 +188,45 @@
                     android:layout_height="35dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/ic_swap"
+                    android:onClick="swapLocations"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner_current_location"
-                    android:onClick="swapLocations"/>
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_current_location" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/loading_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/mainBlue"
+            android:padding="30dp"
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/loading_bar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:fontFamily="serif-monospace"
+                android:text="Loading data ..."
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+            <ProgressBar
+                android:id="@+id/loading_bar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:visibility="visible" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

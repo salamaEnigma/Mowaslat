@@ -1,7 +1,6 @@
 package com.paramgy.mowaslat.features.message.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -50,10 +49,12 @@ public class MessageActivity extends AppCompatActivity implements MessageViewCon
 
     public void sendButtonClicked(View view) {
         String message = editText.getText().toString();
-        //TODO Some action to send a msg
-        Log.i("User Message", message);
-        messageViewModel.sendMsg(message);
-        Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
+        if (message.isEmpty()) {
+            Toast.makeText(this, "Please enter the message first", Toast.LENGTH_SHORT).show();
+        } else {
+            messageViewModel.sendMsg(message);
+            Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

@@ -1,8 +1,12 @@
 package com.paramgy.mowaslat.data.repository;
 
 import com.paramgy.mowaslat.data.firestore.FireStoreRepository;
-import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreLocationsCallback;
-import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreResultCallback;
+import com.paramgy.mowaslat.data.model.pojos.Location;
+import com.paramgy.mowaslat.data.model.pojos.Result;
+
+import java.util.List;
+
+import androidx.lifecycle.LiveData;
 
 public class AppRepository {
     private FireStoreRepository fireStoreRepository;
@@ -24,12 +28,12 @@ public class AppRepository {
     }
 
     //***************** Operations ********************//
-    public void getAllLocations(FirestoreLocationsCallback firestoreLocationsCallback) {
-        fireStoreRepository.getLocations(firestoreLocationsCallback);
+    public LiveData<List<Location>> getAllLocations() {
+        return fireStoreRepository.getLocations();
     }
 
-    public void getResult(FirestoreResultCallback callback, String current, String destination, int method) {
-        fireStoreRepository.getResult(callback, current, destination, method);
+    public LiveData<Result> getResult(String current, String destination, int method) {
+        return fireStoreRepository.getResult(current, destination, method);
     }
 
     public void setResultRating(float rating, String resultID, String uniqueID) {

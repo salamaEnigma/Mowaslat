@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -20,12 +21,12 @@ import com.google.android.material.navigation.NavigationView;
 import com.paramgy.mowaslat.R;
 import com.paramgy.mowaslat.data.firestore.TinyDB;
 import com.paramgy.mowaslat.data.model.pojos.Location;
-import com.paramgy.mowaslat.view.ContactActivity;
+import com.paramgy.mowaslat.features.main.contracts.LocationsViewModelContract;
 import com.paramgy.mowaslat.features.main.contracts.MainViewContract;
+import com.paramgy.mowaslat.features.main.viewmodel.LocationsViewModel;
 import com.paramgy.mowaslat.features.message.view.MessageActivity;
 import com.paramgy.mowaslat.features.result.view.ResultActivity;
-import com.paramgy.mowaslat.features.main.viewmodel.LocationsViewModel;
-import com.paramgy.mowaslat.features.main.contracts.LocationsViewModelContract;
+import com.paramgy.mowaslat.view.ContactActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
     //Navigation Drawer Fields
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
+    @BindView(R.id.loading_layout)
+    RelativeLayout loadingLayout;
 
     //Fields
     TinyDB tinyDB;
@@ -77,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        LiveData<List<Location>> locationListLive;
         //Get ViewModel instance
         locationsViewModelContract = ViewModelProviders.of(this).get(LocationsViewModel.class);
 
@@ -105,7 +110,9 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
         tinyDB = new TinyDB(this);
         if (tinyDB.getListString("locations").size() == 0) {
             Log.d(TAG, "onCreate: OnlineData");
-            locationsViewModelContract.getAllLocations(this);
+            locationListLive = locationsViewModelContract.getAllLocations();
+            locationListLive.observe(this, this);
+            loadingLayout.setVisibility(View.VISIBLE);
         } else {
             Log.d(TAG, "onCreate: OfflineData");
             ArrayList<String> locationsList = tinyDB.getListString("locations");
@@ -187,7 +194,6 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
     @Override
     public void onClick(View v) {
-        Log.i("test", "result button clicked!");
         Intent resultIntent = new Intent(this, ResultActivity.class);
         resultIntent.putExtra("currentLocation", currentLocation);
         resultIntent.putExtra("destination", destination);
@@ -262,8 +268,10 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
         return true;
     }
 
+
     @Override
-    public void locationsListCallback(List<Location> locations) {
+    public void onChanged(List<Location> locations) {
+        loadingLayout.setVisibility(View.INVISIBLE);
         ArrayList<String> locationsList = new ArrayList<>();
         for (Location location : locations) {
             locationsList.add(location.getName());
@@ -273,5 +281,4 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
         spinnerAdapter.addAll(locationsList);
         spinnerAdapter.notifyDataSetChanged();
     }
-
 }// end MainActivity

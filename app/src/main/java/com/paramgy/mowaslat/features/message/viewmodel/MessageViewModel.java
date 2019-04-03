@@ -16,6 +16,6 @@ public class MessageViewModel extends ViewModel implements MessageViewModelContr
 
     @Override
     public void sendMsg(String text) {
-            appRepository.sendMsg(text);
+        appRepository.sendMsg(text);
     }
 }

@@ -10,8 +10,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
-import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreLocationsCallback;
-import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreResultCallback;
 import com.paramgy.mowaslat.data.model.pojos.Location;
 import com.paramgy.mowaslat.data.model.pojos.Result;
 
@@ -19,9 +17,12 @@ import org.hashids.Hashids;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 public class FireStoreRepository {
 
@@ -45,10 +46,8 @@ public class FireStoreRepository {
         ratingsCollectionRef = db.collection("ratings");
     }
 
-    public void getResult(FirestoreResultCallback callback, String current, String destination, int method) {
-        Log.d(TAG, "getResult: " + current);
-        Log.d(TAG, "getResult: " + destination);
-        Log.d(TAG, "getResult: " + method);
+    public LiveData<Result> getResult(String current, String destination, int method) {
+        MutableLiveData mutableLiveData = new MutableLiveData();
         resultsCollectionRef.whereEqualTo(KEY_RESULT_CURRENT, current)
                 .whereEqualTo(KEY_RESULT_DESTINATION, destination)
                 .whereEqualTo(KEY_RESULT_METHOD, method)
@@ -64,11 +63,12 @@ public class FireStoreRepository {
                                 Result result = doc.toObject(Result.class);
                                 String documentID = doc.getId();
                                 result.setDocumentID(documentID);
-                                callback.resultCallback(result);
+                                mutableLiveData.setValue(result);
+
                             }
                         } else {
                             Log.d(TAG, "onSuccess: Doc Doesn't Exist");
-                            callback.resultCallback(null);
+                            mutableLiveData.setValue(null);
                         }
                     }// end onSuccess
                 }).addOnFailureListener(new OnFailureListener() {
@@ -77,10 +77,12 @@ public class FireStoreRepository {
                 Log.d(TAG, e.getMessage());
             }
         });
+        return mutableLiveData;
     } //end getResult
 
-    public void getLocations(FirestoreLocationsCallback callback) {
+    public LiveData<List<Location>> getLocations() {
         ArrayList<Location> locationsList = new ArrayList<>();
+        MutableLiveData mutableLiveData = new MutableLiveData();
         locationsCollectionRef
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -89,9 +91,11 @@ public class FireStoreRepository {
                     Location location = doc.toObject(Location.class);
                     locationsList.add(location);
                 }
-                callback.locationsListCallback(locationsList);
+
+                mutableLiveData.setValue(locationsList);
             }//end onSuccess
         });
+        return mutableLiveData;
     }// end getLocations
 
 
@@ -99,8 +103,9 @@ public class FireStoreRepository {
     public void setResultRating(float rating, String resultID, String uniqueID) {
         // Hashing uniqueID
         Hashids hashids = new Hashids("com.paramgy.mowaslat");
-        String hashUniqueID = hashids.encode(uniqueID.hashCode());
+        String hashUniqueID = hashids.encodeHex(uniqueID.substring(0, 7));
         String rateID = "#" + hashUniqueID + "#" + resultID;
+        Log.d(TAG, "hashUniqueID = " + hashUniqueID);
 
         Map<String, Object> rate = new HashMap<>();
         rate.put("rate", rating);

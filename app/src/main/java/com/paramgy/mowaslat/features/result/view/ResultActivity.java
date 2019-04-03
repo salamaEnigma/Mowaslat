@@ -11,10 +11,11 @@ import com.paramgy.mowaslat.R;
 import com.paramgy.mowaslat.data.model.pojos.Result;
 import com.paramgy.mowaslat.features.message.view.MessageActivity;
 import com.paramgy.mowaslat.features.result.contracts.ResultViewContract;
-import com.paramgy.mowaslat.features.result.viewmodel.ResultViewModel;
 import com.paramgy.mowaslat.features.result.contracts.ResultViewModelContract;
+import com.paramgy.mowaslat.features.result.viewmodel.ResultViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -55,6 +56,7 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
         //Get Result View Model Instance
         resultViewModel = ViewModelProviders.of(this).get(ResultViewModel.class);
 
+
         //Initializing Views
         ButterKnife.bind(this);
 
@@ -65,6 +67,7 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
 
         //Get uniqueID
         uniqueID = getIntent().getStringExtra("uniqueID");
+
 
         //Show and Check Result On Create
         checkResult();
@@ -86,8 +89,10 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
             resultTextView.setVisibility(View.VISIBLE);
             return;
         }
+        // Get Result
+        LiveData<Result> resultLiveData = resultViewModel.getResult(currentLocation, destination, method);
+        resultLiveData.observe(this, this);
         progressBar.setVisibility(View.VISIBLE);
-        resultViewModel.getResult(this, currentLocation, destination, method);
     }// end checkResult
 
     public void setUserRating(float userRating) {
@@ -115,8 +120,9 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
         }
     }
 
+
     @Override
-    public void resultCallback(Result result) {
+    public void onChanged(Result result) {
         if (result != null) {
             this.result = result;
             String text = result.getText();
@@ -126,6 +132,5 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
         }
         progressBar.setVisibility(View.INVISIBLE);
         resultTextView.setVisibility(View.VISIBLE);
-    }// end resultCallback
-
+    }
 } //end resultActivity

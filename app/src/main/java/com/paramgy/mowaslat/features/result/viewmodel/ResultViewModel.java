@@ -4,12 +4,13 @@ import android.app.Application;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreResultCallback;
+import com.paramgy.mowaslat.data.model.pojos.Result;
 import com.paramgy.mowaslat.data.repository.AppRepository;
 import com.paramgy.mowaslat.features.result.contracts.ResultViewModelContract;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 public class ResultViewModel extends AndroidViewModel implements ResultViewModelContract {
 
@@ -25,8 +26,8 @@ public class ResultViewModel extends AndroidViewModel implements ResultViewModel
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
 
     @Override
-    public void getResult(FirestoreResultCallback callback, String current, String destination, int method) {
-        appRepository.getResult(callback, current, destination, method);
+    public LiveData<Result> getResult(String current, String destination, int method) {
+        return appRepository.getResult(current, destination, method);
     } //end getResultString
 
     @Override

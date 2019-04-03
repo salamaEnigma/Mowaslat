@@ -5,7 +5,11 @@ import android.widget.AdapterView;
 import android.widget.RadioGroup;
 
 import com.google.android.material.navigation.NavigationView;
-import com.paramgy.mowaslat.data.firestore.callbacks.FirestoreLocationsCallback;
+import com.paramgy.mowaslat.data.model.pojos.Location;
 
-public interface MainViewContract extends View.OnClickListener, AdapterView.OnItemSelectedListener, FirestoreLocationsCallback, RadioGroup.OnCheckedChangeListener, NavigationView.OnNavigationItemSelectedListener {
+import java.util.List;
+
+import androidx.lifecycle.Observer;
+
+public interface MainViewContract extends View.OnClickListener, AdapterView.OnItemSelectedListener, Observer<List<Location>>, RadioGroup.OnCheckedChangeListener, NavigationView.OnNavigationItemSelectedListener {
 }
