@@ -1,5 +1,6 @@
 package com.paramgy.mowaslat.features.message.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -53,6 +54,17 @@ public class MessageActivity extends AppCompatActivity implements MessageViewCon
             Toast.makeText(this, "Please enter the message first", Toast.LENGTH_SHORT).show();
         } else {
             messageViewModel.sendMsg(message);
+
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("message/rfc822");
+            i.putExtra(Intent.EXTRA_EMAIL, new String[]{"salama92work@gmail.com"});
+            i.putExtra(Intent.EXTRA_SUBJECT, "Suggestion");
+            i.putExtra(Intent.EXTRA_TEXT, message);
+            try {
+                startActivity(Intent.createChooser(i, "Send mail..."));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            }
             Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
         }
 

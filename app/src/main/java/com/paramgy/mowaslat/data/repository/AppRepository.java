@@ -39,8 +39,4 @@ public class AppRepository {
     public void setResultRating(float rating, String resultID, String uniqueID) {
         fireStoreRepository.setResultRating(rating, resultID, uniqueID);
     }
-
-    public void sendMsg(String text) {
-        //todo send msg via email
-    }
 }// end AppRepository Class

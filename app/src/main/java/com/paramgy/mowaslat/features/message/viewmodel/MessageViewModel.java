@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel;
 
 public class MessageViewModel extends ViewModel implements MessageViewModelContract {
 
-
     private AppRepository appRepository;
 
     public MessageViewModel() {
@@ -16,6 +15,6 @@ public class MessageViewModel extends ViewModel implements MessageViewModelContr
 
     @Override
     public void sendMsg(String text) {
-        appRepository.sendMsg(text);
+        //TODO send an email
     }
 }
