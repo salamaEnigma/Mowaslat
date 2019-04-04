@@ -66,13 +66,13 @@ public class Result {
     public String getText(String method) {
 
         switch (method) {
-            case "car":
+            case "مشروع":
                 return getCar();
 
-            case "train":
+            case "قطر":
                 return getTrain();
 
-            case "tram":
+            case "ترام":
                 return getTram();
 
             default:

@@ -40,18 +40,6 @@ public class MessageActivity extends AppCompatActivity implements MessageViewCon
             current = getIntent().getStringExtra("current");
             destination = getIntent().getStringExtra("destination");
             method = getIntent().getStringExtra("method");
-            switch (method) {
-                case "car":
-                    method = "مشروع";
-                    break;
-                case "train":
-                    method = "قطر أبو قير";
-                    break;
-                case "tram":
-                    method = "ترام";
-                    break;
-            }
-
         }
     } // end on create
 

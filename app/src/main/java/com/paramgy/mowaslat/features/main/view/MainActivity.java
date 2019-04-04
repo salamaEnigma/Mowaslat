@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
 
         //Set the Car button to be checked by default and set corresponding method value
         car_button.setChecked(true);
-        method = "car";
+        method = "مشروع";
 
         //Set Button Listener
         button_get_result.setOnClickListener(this);
@@ -227,16 +227,16 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
 
         switch (checkedId) {
             case R.id.car:
-                method = "car";
+                method = "مشروع";
                 break;
             case R.id.train:
-                method = "train";
+                method = "قطر";
                 break;
             case R.id.tram:
-                method = "tram";
+                method = "ترام";
                 break;
             default:
-                method = "car";
+                method = "مشروع";
                 break;
         }
     }
