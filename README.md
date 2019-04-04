@@ -16,6 +16,8 @@ a public transportation guide app in Alexandria.
 
 6- Retrofit 2
 
-7- Firebase
+7- Firebase / Firestore
 
-8- 
+8- Dagger 2
+
+9- ButterKnife
