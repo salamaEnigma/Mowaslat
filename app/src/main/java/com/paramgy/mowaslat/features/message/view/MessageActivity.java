@@ -8,12 +8,9 @@ import android.widget.Toast;
 
 import com.paramgy.mowaslat.R;
 import com.paramgy.mowaslat.features.message.contracts.MessageViewContract;
-import com.paramgy.mowaslat.features.message.contracts.MessageViewModelContract;
-import com.paramgy.mowaslat.features.message.viewmodel.MessageViewModel;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -24,7 +21,10 @@ public class MessageActivity extends AppCompatActivity implements MessageViewCon
     EditText editText;
 
     //Fields
-    MessageViewModelContract messageViewModel;
+    String current;
+    String destination;
+    String method;
+    boolean isBadResult;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,13 +34,21 @@ public class MessageActivity extends AppCompatActivity implements MessageViewCon
         //Initializing Views
         ButterKnife.bind(this);
 
-        //MessageViewModel instance
-        messageViewModel = ViewModelProviders.of(this).get(MessageViewModel.class);
-
-
-        boolean isBadResult = getIntent().getBooleanExtra("isBadResult", false);
+        isBadResult = getIntent().getBooleanExtra("isBadResult", false);
         if (isBadResult) {
             editText.setHint("اقترح طريق أفضل");
+            current = getIntent().getStringExtra("current");
+            destination = getIntent().getStringExtra("destination");
+            method = getIntent().getStringExtra("method");
+
+            switch (method) {
+                case "car":
+                    method = "مشروع";
+                case "train":
+                    method = "قطر أبو قير";
+                case "tram":
+                    method = "ترام";
+            }
         }
     } // end on create
 
@@ -53,20 +61,23 @@ public class MessageActivity extends AppCompatActivity implements MessageViewCon
         if (message.isEmpty()) {
             Toast.makeText(this, "Please enter the message first", Toast.LENGTH_SHORT).show();
         } else {
-            messageViewModel.sendMsg(message);
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
-            Intent i = new Intent(Intent.ACTION_SEND);
-            i.setType("message/rfc822");
-            i.putExtra(Intent.EXTRA_EMAIL, new String[]{"salama92work@gmail.com"});
-            i.putExtra(Intent.EXTRA_SUBJECT, "Suggestion");
-            i.putExtra(Intent.EXTRA_TEXT, message);
+            if (isBadResult) {
+                String info = '\n' + "مكانك: " + current + '\n' + "رايح فين: " + destination + '\n' +
+                        "رايح ازاي: " + method;
+                message = message + info;
+            }
+            emailIntent.setType("message/rfc822");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{"mowaslat.info@gmail.com"});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "اقتراح");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, message);
             try {
-                startActivity(Intent.createChooser(i, "Send mail..."));
+                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
             } catch (android.content.ActivityNotFoundException ex) {
                 Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
             }
-            Toast.makeText(this, "Message Sent", Toast.LENGTH_SHORT).show();
         }
 
-    }
+    } //end send
 }

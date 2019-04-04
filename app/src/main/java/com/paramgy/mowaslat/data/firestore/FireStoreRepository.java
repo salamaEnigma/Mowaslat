@@ -37,7 +37,7 @@ public class FireStoreRepository {
 
     private static final String KEY_RESULT_CURRENT = "current";
     private static final String KEY_RESULT_DESTINATION = "destination";
-    private static final String KEY_RESULT_METHOD = "method";
+
 
     public FireStoreRepository() {
         db = FirebaseFirestore.getInstance();
@@ -46,11 +46,11 @@ public class FireStoreRepository {
         ratingsCollectionRef = db.collection("ratings");
     }
 
-    public LiveData<Result> getResult(String current, String destination, int method) {
+    //Result Fetching
+    public LiveData<Result> getResult(String current, String destination) {
         MutableLiveData mutableLiveData = new MutableLiveData();
         resultsCollectionRef.whereEqualTo(KEY_RESULT_CURRENT, current)
                 .whereEqualTo(KEY_RESULT_DESTINATION, destination)
-                .whereEqualTo(KEY_RESULT_METHOD, method)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -80,6 +80,8 @@ public class FireStoreRepository {
         return mutableLiveData;
     } //end getResult
 
+
+    //Location List Fetching
     public LiveData<List<Location>> getLocations() {
         ArrayList<Location> locationsList = new ArrayList<>();
         MutableLiveData mutableLiveData = new MutableLiveData();
@@ -98,18 +100,18 @@ public class FireStoreRepository {
         return mutableLiveData;
     }// end getLocations
 
-
     // Rating method
-    public void setResultRating(float rating, String resultID, String uniqueID) {
+    public void setResultRating(float rating, String resultID, String method, String uniqueID) {
         // Hashing uniqueID
         Hashids hashids = new Hashids("com.paramgy.mowaslat");
         String hashUniqueID = hashids.encodeHex(uniqueID.substring(0, 7));
-        String rateID = "#" + hashUniqueID + "#" + resultID;
+        String rateID = "#" + hashUniqueID + "#" + method + "#" + resultID;
         Log.d(TAG, "hashUniqueID = " + hashUniqueID);
 
         Map<String, Object> rate = new HashMap<>();
         rate.put("rate", rating);
         rate.put("resultID", resultID);
+        rate.put("method", method);
 
         DocumentReference docRef = ratingsCollectionRef.document(rateID);
         docRef.set(rate, SetOptions.merge()).addOnSuccessListener(new OnSuccessListener<Void>() {

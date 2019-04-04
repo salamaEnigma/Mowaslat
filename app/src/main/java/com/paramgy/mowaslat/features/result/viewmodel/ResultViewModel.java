@@ -26,16 +26,14 @@ public class ResultViewModel extends AndroidViewModel implements ResultViewModel
     // * * * * * * * * * * Interface Implementations * * * * * * * * * * //
 
     @Override
-    public LiveData<Result> getResult(String current, String destination, int method) {
-        return appRepository.getResult(current, destination, method);
+    public LiveData<Result> getResult(String current, String destination) {
+        return appRepository.getResult(current, destination);
     } //end getResultString
 
     @Override
-    public void setUserRating(float rating, String resultID, String uniqueID) {
-
-        appRepository.setResultRating(rating, resultID, uniqueID);
+    public void setUserRating(float rating, String resultID, String method, String uniqueID) {
+        appRepository.setResultRating(rating, resultID, method, uniqueID);
         Toast.makeText(applicationContext, "Thank you for your feedback", Toast.LENGTH_SHORT).show();
-
     } //end set user rating
 
 

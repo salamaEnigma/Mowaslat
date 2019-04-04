@@ -32,11 +32,11 @@ public class AppRepository {
         return fireStoreRepository.getLocations();
     }
 
-    public LiveData<Result> getResult(String current, String destination, int method) {
-        return fireStoreRepository.getResult(current, destination, method);
+    public LiveData<Result> getResult(String current, String destination) {
+        return fireStoreRepository.getResult(current, destination);
     }
 
-    public void setResultRating(float rating, String resultID, String uniqueID) {
-        fireStoreRepository.setResultRating(rating, resultID, uniqueID);
+    public void setResultRating(float rating, String resultID, String method, String uniqueID) {
+        fireStoreRepository.setResultRating(rating, resultID, method , uniqueID);
     }
 }// end AppRepository Class

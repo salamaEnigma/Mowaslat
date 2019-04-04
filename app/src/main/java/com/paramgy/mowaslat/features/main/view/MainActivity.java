@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
     private ArrayAdapter spinnerAdapter;
     private String currentLocation;
     private String destination;
-    private int method;
+    private String method;
     int currentLocationPosition;
     int destinationPosition;
     boolean doubleBackToExitPressedOnce = false;
@@ -93,8 +93,9 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
         setSpinner();
 
 
-        //Set the Car button to be checked by default
+        //Set the Car button to be checked by default and set corresponding method value
         car_button.setChecked(true);
+        method = "car";
 
         //Set Button Listener
         button_get_result.setOnClickListener(this);
@@ -226,16 +227,16 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
 
         switch (checkedId) {
             case R.id.car:
-                method = 0;
+                method = "car";
                 break;
             case R.id.train:
-                method = 1;
+                method = "train";
                 break;
             case R.id.tram:
-                method = 2;
+                method = "tram";
                 break;
             default:
-                method = 0;
+                method = "car";
                 break;
         }
     }

@@ -3,31 +3,29 @@ package com.paramgy.mowaslat.data.model.pojos;
 import com.google.firebase.firestore.Exclude;
 
 public class Result {
-
-
-
     private String documentID;
 
     private String currentLocation;
     private String destination;
-    //0 For Car , 1 For Train , 2 For Tram/Metro
-    private int transportationMethod;
-    private String text;
+
+    //Text Results
+    private String car;
+    private String train;
+    private String tram;
+    private static final String ERROR_MSG_NOT_FOUND = "لسه مضفناش ( المواصلة ) دي لقاعدة البيانات";
 
     public Result() {
         //Needed for Firebase
     }
 
-    public Result(String currentLocation, String destination, int transportationMethod, String text) {
+    public Result(String currentLocation, String destination, String car, String train, String tram) {
         this.currentLocation = currentLocation;
         this.destination = destination;
-        this.transportationMethod = transportationMethod;
-        this.text = text;
+        this.car = car;
+        this.train = train;
+        this.tram = tram;
     }
 
-    public String getText() {
-        return text;
-    }
 
     @Exclude
     public String getDocumentID() {
@@ -38,7 +36,6 @@ public class Result {
         this.documentID = documentID;
     }
 
-
     public String getCurrentLocation() {
         return currentLocation;
     }
@@ -47,8 +44,39 @@ public class Result {
         return destination;
     }
 
-    public int getTransportationMethod() {
-        return transportationMethod;
+    public String getCar() {
+        if (car == null)
+            return ERROR_MSG_NOT_FOUND;
+        return car;
     }
 
+    public String getTrain() {
+        if (train == null)
+            return ERROR_MSG_NOT_FOUND;
+        return train;
+    }
+
+
+    public String getTram() {
+        if (tram == null)
+            return ERROR_MSG_NOT_FOUND;
+        return tram;
+    }
+
+    public String getText(String method) {
+
+        switch (method) {
+            case "car":
+                return getCar();
+
+            case "train":
+                return getTrain();
+
+            case "tram":
+                return getTram();
+
+            default:
+                return getCar();
+        }
+    }
 }

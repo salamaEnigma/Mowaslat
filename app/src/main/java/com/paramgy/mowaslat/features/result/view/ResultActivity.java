@@ -39,7 +39,7 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
     //Search Fields
     private String currentLocation;
     private String destination;
-    private int method;
+    private String method;
 
     private String uniqueID;
 
@@ -63,7 +63,7 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
         //Get extras ( result details ) from the main activity
         currentLocation = getIntent().getStringExtra("currentLocation");
         destination = getIntent().getStringExtra("destination");
-        method = getIntent().getIntExtra("method", 0);
+        method = getIntent().getStringExtra("method");
 
         //Get uniqueID
         uniqueID = getIntent().getStringExtra("uniqueID");
@@ -90,14 +90,14 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
             return;
         }
         // Get Result
-        LiveData<Result> resultLiveData = resultViewModel.getResult(currentLocation, destination, method);
+        LiveData<Result> resultLiveData = resultViewModel.getResult(currentLocation, destination);
         resultLiveData.observe(this, this);
         progressBar.setVisibility(View.VISIBLE);
     }// end checkResult
 
     public void setUserRating(float userRating) {
         if (result != null) {
-            resultViewModel.setUserRating(userRating, result.getDocumentID(), uniqueID);
+            resultViewModel.setUserRating(userRating, result.getDocumentID(), method, uniqueID);
             if (userRating <= 2) {
                 Intent intent = new Intent(this, MessageActivity.class);
                 intent.putExtra("isBadResult", true);
@@ -120,12 +120,11 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
         }
     }
 
-
     @Override
     public void onChanged(Result result) {
         if (result != null) {
             this.result = result;
-            String text = result.getText();
+            String text = result.getText(method);
             resultTextView.setText(text);
         } else {
             resultTextView.setText(ERROR_MSG_NOT_FOUND);

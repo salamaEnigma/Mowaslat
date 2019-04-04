@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 
 public interface ResultViewModelContract {
 
-    LiveData<Result> getResult(String current, String destination, int method);
+    LiveData<Result> getResult(String current, String destination);
 
-    void setUserRating(float rating, String resultID, String userID);
+    void setUserRating(float rating, String resultID, String method, String userID);
 }
