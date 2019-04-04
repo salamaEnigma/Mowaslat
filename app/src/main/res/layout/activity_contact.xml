@@ -30,6 +30,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
             android:text="01558696799"
+            android:inputType="phone"
             android:textColor="@color/black"
             android:textSize="27sp" />
 
@@ -58,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
-            android:text="salama92work@gmail.com"
+            android:text="mowaslat.info@gmail.com"
             android:textColor="@color/black"
             android:textSize="25sp" />
 

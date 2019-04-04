@@ -33,6 +33,7 @@ public class IntroActivity extends AppCompatActivity {
         final ProgressBar progressBar = findViewById(R.id.progressBar);
         seekBar.setMax(100);
         seekBar.setThumbOffset(0);
+        seekBar.setEnabled(false);
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
