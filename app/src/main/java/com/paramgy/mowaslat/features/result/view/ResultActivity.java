@@ -8,7 +8,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.paramgy.mowaslat.R;
-import com.paramgy.mowaslat.data.model.pojos.Result;
+import com.paramgy.mowaslat.data.model.pojos.NewResult;
 import com.paramgy.mowaslat.features.message.view.MessageActivity;
 import com.paramgy.mowaslat.features.result.contracts.ResultViewContract;
 import com.paramgy.mowaslat.features.result.contracts.ResultViewModelContract;
@@ -33,8 +33,9 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
     //ViewModel Reference
     private ResultViewModelContract resultViewModel;
 
-    //Result Object
-    Result result;
+
+    //NewResult Object
+    NewResult newResult;
 
     //Search Fields
     private String currentLocation;
@@ -56,11 +57,10 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
         //Get Result View Model Instance
         resultViewModel = ViewModelProviders.of(this).get(ResultViewModel.class);
 
-
         //Initializing Views
         ButterKnife.bind(this);
 
-        //Get extras ( result details ) from the main activity
+        //Get extras ( newResult details ) from the main activity
         currentLocation = getIntent().getStringExtra("currentLocation");
         destination = getIntent().getStringExtra("destination");
         method = getIntent().getStringExtra("method");
@@ -90,14 +90,14 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
             return;
         }
         // Get Result
-        LiveData<Result> resultLiveData = resultViewModel.getResult(currentLocation, destination);
+        LiveData<NewResult> resultLiveData = resultViewModel.getNewResult(currentLocation, destination, method);
         resultLiveData.observe(this, this);
         progressBar.setVisibility(View.VISIBLE);
     }// end checkResult
 
     public void setUserRating(float userRating) {
-        if (result != null) {
-            resultViewModel.setUserRating(userRating, result.getDocumentID(), method, uniqueID);
+        if (newResult != null) {
+            resultViewModel.setUserRating(userRating, newResult.getDocumentID(), uniqueID);
             if (userRating <= 2) {
                 Intent intent = new Intent(this, MessageActivity.class);
                 intent.putExtra("isBadResult", true);
@@ -121,10 +121,10 @@ public class ResultActivity extends AppCompatActivity implements ResultViewContr
     }
 
     @Override
-    public void onChanged(Result result) {
-        if (result != null) {
-            this.result = result;
-            String text = result.getText(method);
+    public void onChanged(NewResult newResult) {
+        if (newResult != null) {
+            this.newResult = newResult;
+            String text = newResult.getText();
             resultTextView.setText(text);
         } else {
             resultTextView.setText(ERROR_MSG_NOT_FOUND);

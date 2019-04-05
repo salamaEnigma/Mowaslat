@@ -2,7 +2,7 @@ package com.paramgy.mowaslat.data.repository;
 
 import com.paramgy.mowaslat.data.firestore.FireStoreRepository;
 import com.paramgy.mowaslat.data.model.pojos.Location;
-import com.paramgy.mowaslat.data.model.pojos.Result;
+import com.paramgy.mowaslat.data.model.pojos.NewResult;
 
 import java.util.List;
 
@@ -32,11 +32,11 @@ public class AppRepository {
         return fireStoreRepository.getLocations();
     }
 
-    public LiveData<Result> getResult(String current, String destination) {
-        return fireStoreRepository.getResult(current, destination);
+    public LiveData<NewResult> getNewResult(String current, String destination,String method) {
+        return fireStoreRepository.getNewResult(current, destination,method);
     }
 
-    public void setResultRating(float rating, String resultID, String method, String uniqueID) {
-        fireStoreRepository.setResultRating(rating, resultID, method , uniqueID);
+    public void setResultRating(float rating, String resultID, String uniqueID) {
+        fireStoreRepository.setResultRating(rating, resultID, uniqueID);
     }
 }// end AppRepository Class
