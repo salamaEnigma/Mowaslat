@@ -9,19 +9,20 @@
         android:roundIcon="@drawable/car"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.paramgy.mowaslat.features.result.view.ResultActivity"></activity>
-        <activity android:name="com.paramgy.mowaslat.features.message.view.MessageActivity"></activity>
-        <activity android:name="com.paramgy.mowaslat.view.ContactActivity"></activity>
+        <activity android:name=".features.result.view.ResultActivity" />
+        <activity android:name=".features.message.view.MessageActivity" />
+        <activity android:name=".view.ContactActivity" />
         <activity
-            android:name="com.paramgy.mowaslat.view.IntroActivity"
+            android:name=".view.IntroActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.paramgy.mowaslat.features.main.view.MainActivity"
+            android:name=".features.main.view.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

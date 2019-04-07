@@ -27,6 +27,7 @@ android {
 dependencies {
     def lifecycle_version = "2.0.0"
     def room_version = "2.1.0-alpha04"
+    def dagger_version = "2.22.1"
 
 
     implementation 'com.android.support:multidex:1.0.3'
@@ -62,6 +63,10 @@ dependencies {
 
     //HashIds
     implementation 'org.hashids:hashids:1.0.3'
+
+    //Dagger2
+    implementation "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 }
 
 apply plugin: 'com.google.gms.google-services'
