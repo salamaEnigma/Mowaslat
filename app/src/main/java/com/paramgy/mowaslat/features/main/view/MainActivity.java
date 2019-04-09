@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
 
     //Fields
     TinyDB tinyDB;
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "MainScreen";
     private ArrayAdapter spinnerAdapter;
     private String currentLocation;
     private String destination;
@@ -205,14 +205,13 @@ public class MainActivity extends AppCompatActivity implements MainViewContract 
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String parentId = parent.toString().substring(103, parent.toString().length() - 1);
 
-        if (parentId.equals("spinner_current_location")) {
-            Log.i("test chosen from", "spinner_current_location");
+        if (parent.toString().equals(spinner_current_location.toString())) {
+            Log.i(TAG, "spinner_current_location");
             currentLocationPosition = position;
             currentLocation = parent.getItemAtPosition(position).toString();
         } else {
-            Log.i("test chosen from", "spinner_destination");
+            Log.i(TAG, "spinner_destination");
             destinationPosition = position;
             destination = parent.getItemAtPosition(position).toString();
         }
